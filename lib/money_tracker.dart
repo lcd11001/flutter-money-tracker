@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 
-import 'home.dart';
-
-class MoneyTrackerApp extends StatelessWidget {
+class MoneyTrackerApp extends StatefulWidget {
   const MoneyTrackerApp({super.key});
 
   @override
+  State<StatefulWidget> createState() {
+    return _MoneyTrackerAppState();
+  }
+}
+
+class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Money Tracker',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return const Scaffold(
+      body: Column(
+        children: [
+          Text('The chart'),
+          Text('Tracker list'),
+        ],
       ),
-      home: const Home(),
     );
   }
 }
