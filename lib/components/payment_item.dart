@@ -10,13 +10,18 @@ class PaymentItem extends StatelessWidget {
     required this.payment,
   });
 
-  String currencyFormat(BuildContext context, double amount) {
-    final loc = AppLocalizations.of(context)!;
+  String currencyFormat(AppLocalizations loc, double amount) {
     return loc.paymentAmount(amount);
+  }
+
+  String dateFormat(AppLocalizations loc, DateTime date) {
+    return loc.paymentDate(date, date);
   }
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
@@ -24,13 +29,40 @@ class PaymentItem extends StatelessWidget {
           vertical: 16.0,
         ),
         // minVerticalPadding: 10.0,
-        dense: true,
-        visualDensity: const VisualDensity(
-          horizontal: 0,
-          vertical: 4,
+        // dense: true,
+        // visualDensity: const VisualDensity(
+        //   horizontal: 0,
+        //   vertical: 4,
+        // ),
+        title: Text(
+          payment.title,
+          style: const TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        title: Text(payment.title),
-        subtitle: Text(currencyFormat(context, payment.amount)),
+        subtitle: Row(
+          children: [
+            Text(currencyFormat(loc, payment.amount)),
+            const Spacer(),
+            Row(
+              children: [
+                const Icon(
+                  Icons.calendar_today,
+                  size: 16.0,
+                  color: Colors.grey,
+                ),
+                Text(
+                  dateFormat(loc, payment.date),
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
         trailing: const Icon(Icons.arrow_forward_ios),
       ),
     );

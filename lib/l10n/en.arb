@@ -13,5 +13,21 @@
                 "description": "The amount of the payment"
             }
         }
+    },
+
+    "paymentDate": "{day} {time}",
+    "@paymentDate": {
+        "placeholders": {
+            "day": {
+                "type": "DateTime",
+                "format": "yMMMd",
+                "description": "The date of the payment"
+            },
+            "time": {
+                "type": "DateTime",
+                "format": "jm",
+                "description": "The time of the payment"
+            }
+        }
     }
 }

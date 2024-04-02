@@ -21,7 +21,11 @@ class PaymentData {
         title: 'Groceries',
         amount: 100.0,
         date: DateTime.now().subtract(
-          Duration(days: random.nextInt(10)),
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
         ),
         category: Category.kFood,
       ),
@@ -29,7 +33,11 @@ class PaymentData {
         title: 'Fuel',
         amount: 50.0,
         date: DateTime.now().subtract(
-          Duration(days: random.nextInt(10)),
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
         ),
         category: Category.kTravel,
       ),
@@ -37,7 +45,11 @@ class PaymentData {
         title: 'Shoes',
         amount: 200.0,
         date: DateTime.now().subtract(
-          Duration(days: random.nextInt(10)),
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
         ),
         category: Category.kShopping,
       ),
@@ -45,7 +57,11 @@ class PaymentData {
         title: 'Rent',
         amount: 1000.0,
         date: DateTime.now().subtract(
-          Duration(days: random.nextInt(10)),
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
         ),
         category: Category.kHousing,
       ),
@@ -53,7 +69,11 @@ class PaymentData {
         title: 'Medicine',
         amount: 50.0,
         date: DateTime.now().subtract(
-          Duration(days: random.nextInt(10)),
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
         ),
         category: Category.kHealth,
       ),
@@ -61,7 +81,11 @@ class PaymentData {
         title: 'Movie',
         amount: 20.0,
         date: DateTime.now().subtract(
-          Duration(days: random.nextInt(10)),
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
         ),
         category: Category.kEntertainment,
       ),
@@ -69,7 +93,11 @@ class PaymentData {
         title: 'Books',
         amount: 30.0,
         date: DateTime.now().subtract(
-          Duration(days: random.nextInt(10)),
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
         ),
         category: Category.kEducation,
       ),
@@ -77,7 +105,11 @@ class PaymentData {
         title: 'Others',
         amount: 10.0,
         date: DateTime.now().subtract(
-          Duration(days: random.nextInt(10)),
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
         ),
         category: Category.kOther,
       ),
