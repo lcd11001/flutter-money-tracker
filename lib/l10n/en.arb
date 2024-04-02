@@ -15,18 +15,14 @@
         }
     },
 
-    "paymentDate": "{day} {time}",
+    "paymentDate": "{value}",
     "@paymentDate": {
         "placeholders": {
-            "day": {
+            "value": {
                 "type": "DateTime",
-                "format": "yMMMd",
+                "format": "dd MMM yyyy 'at' h:mm aaa",
+                "isCustomDateFormat": "true",
                 "description": "The date of the payment"
-            },
-            "time": {
-                "type": "DateTime",
-                "format": "jm",
-                "description": "The time of the payment"
             }
         }
     }
