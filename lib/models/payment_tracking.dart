@@ -23,7 +23,5 @@ class PaymentTracking {
 
   String get formattedDate => dateFormatter.format(date);
   String get formattedAmount => amountFormatter.format(amount);
-  IconData get icon => categoryIcons.containsKey(category)
-      ? categoryIcons[category]!
-      : categoryIcons[Category.other]!;
+  IconData? get icon => categoryIcons[category];
 }
