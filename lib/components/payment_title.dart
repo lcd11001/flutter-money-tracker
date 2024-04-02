@@ -6,11 +6,9 @@ class PaymentTitle extends StatelessWidget {
   const PaymentTitle({
     super.key,
     required this.payment,
-    required this.localize,
   });
 
   final PaymentTracking payment;
-  final AppLocalizations localize;
 
   @override
   Widget build(BuildContext context) {

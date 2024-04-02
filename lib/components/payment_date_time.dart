@@ -6,27 +6,22 @@ class PaymentDateTime extends StatelessWidget {
   const PaymentDateTime({
     super.key,
     required this.payment,
-    required this.localize,
   });
 
   final PaymentTracking payment;
-  final AppLocalizations localize;
-
-  String dateFormat(DateTime date) {
-    return localize.paymentDate(date);
-  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Icon(
-          Icons.calendar_today,
+        Icon(
+          payment.icon,
           size: 16.0,
           color: Colors.grey,
         ),
+        const SizedBox(width: 4.0),
         Text(
-          dateFormat(payment.date),
+          payment.formattedDate,
           style: const TextStyle(
             fontSize: 12.0,
             color: Colors.grey,

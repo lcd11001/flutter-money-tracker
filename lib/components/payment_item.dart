@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:money_tracker/models/payment_tracking.dart';
 
 import 'payment_date_time.dart';
@@ -16,8 +15,6 @@ class PaymentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
-
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
@@ -32,18 +29,15 @@ class PaymentItem extends StatelessWidget {
         ),
         title: PaymentTitle(
           payment: payment,
-          localize: loc,
         ),
         subtitle: Row(
           children: [
             PaymentSubTitle(
               payment: payment,
-              localize: loc,
             ),
             const Spacer(),
             PaymentDateTime(
               payment: payment,
-              localize: loc,
             )
           ],
         ),

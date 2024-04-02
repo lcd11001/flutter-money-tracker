@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:money_tracker/models/payment_tracking.dart';
+import 'package:money_tracker/models/payment_category.dart';
 
 final random = Random();
 
@@ -27,7 +28,7 @@ class PaymentData {
             minutes: random.nextInt(60),
           ),
         ),
-        category: Category.kFood,
+        category: Category.food,
       ),
       PaymentTracking(
         title: 'Fuel',
@@ -39,7 +40,7 @@ class PaymentData {
             minutes: random.nextInt(60),
           ),
         ),
-        category: Category.kTravel,
+        category: Category.travel,
       ),
       PaymentTracking(
         title: 'Shoes',
@@ -51,7 +52,7 @@ class PaymentData {
             minutes: random.nextInt(60),
           ),
         ),
-        category: Category.kShopping,
+        category: Category.shopping,
       ),
       PaymentTracking(
         title: 'Rent',
@@ -63,7 +64,7 @@ class PaymentData {
             minutes: random.nextInt(60),
           ),
         ),
-        category: Category.kHousing,
+        category: Category.housing,
       ),
       PaymentTracking(
         title: 'Medicine',
@@ -75,7 +76,7 @@ class PaymentData {
             minutes: random.nextInt(60),
           ),
         ),
-        category: Category.kHealth,
+        category: Category.health,
       ),
       PaymentTracking(
         title: 'Movie',
@@ -87,7 +88,7 @@ class PaymentData {
             minutes: random.nextInt(60),
           ),
         ),
-        category: Category.kEntertainment,
+        category: Category.entertainment,
       ),
       PaymentTracking(
         title: 'Books',
@@ -99,7 +100,139 @@ class PaymentData {
             minutes: random.nextInt(60),
           ),
         ),
-        category: Category.kEducation,
+        category: Category.education,
+      ),
+      PaymentTracking(
+        title: 'Laptop',
+        amount: 1000.0,
+        date: DateTime.now().subtract(
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
+        ),
+        category: Category.work,
+      ),
+      PaymentTracking(
+        title: 'Electricity',
+        amount: 50.0,
+        date: DateTime.now().subtract(
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
+        ),
+        category: Category.utilities,
+      ),
+      PaymentTracking(
+        title: 'Spa',
+        amount: 100.0,
+        date: DateTime.now().subtract(
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
+        ),
+        category: Category.personalCare,
+      ),
+      PaymentTracking(
+        title: 'Gym',
+        amount: 50.0,
+        date: DateTime.now().subtract(
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
+        ),
+        category: Category.fitness,
+      ),
+      PaymentTracking(
+        title: 'Taxi',
+        amount: 20.0,
+        date: DateTime.now().subtract(
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
+        ),
+        category: Category.transportation,
+      ),
+      PaymentTracking(
+        title: 'Insurance',
+        amount: 100.0,
+        date: DateTime.now().subtract(
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
+        ),
+        category: Category.insurance,
+      ),
+      PaymentTracking(
+        title: 'Investment',
+        amount: 1000.0,
+        date: DateTime.now().subtract(
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
+        ),
+        category: Category.investments,
+      ),
+      PaymentTracking(
+        title: 'Savings',
+        amount: 100.0,
+        date: DateTime.now().subtract(
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
+        ),
+        category: Category.savings,
+      ),
+      PaymentTracking(
+        title: 'Gift',
+        amount: 50.0,
+        date: DateTime.now().subtract(
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
+        ),
+        category: Category.giftsAndDonations,
+      ),
+      PaymentTracking(
+        title: 'Pet Food',
+        amount: 20.0,
+        date: DateTime.now().subtract(
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
+        ),
+        category: Category.pets,
+      ),
+      PaymentTracking(
+        title: 'School Fees',
+        amount: 100.0,
+        date: DateTime.now().subtract(
+          Duration(
+            days: random.nextInt(10),
+            hours: random.nextInt(24),
+            minutes: random.nextInt(60),
+          ),
+        ),
+        category: Category.kids,
       ),
       PaymentTracking(
         title: 'Others',
@@ -111,7 +244,7 @@ class PaymentData {
             minutes: random.nextInt(60),
           ),
         ),
-        category: Category.kOther,
+        category: Category.other,
       ),
     ];
   }
