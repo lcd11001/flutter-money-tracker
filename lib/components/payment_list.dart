@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_tracker/components/payment_item.dart';
 import 'package:money_tracker/models/payment_tracking.dart';
 
 class PaymentList extends StatelessWidget {
@@ -10,12 +11,7 @@ class PaymentList extends StatelessWidget {
   });
 
   Widget buildListItem(BuildContext context, int index) {
-    final payment = payments[index];
-    return ListTile(
-      title: Text(payment.title),
-      subtitle: Text(payment.amount.toString()),
-      trailing: const Icon(Icons.arrow_forward_ios),
-    );
+    return PaymentItem(payment: payments[index]);
   }
 
   @override
