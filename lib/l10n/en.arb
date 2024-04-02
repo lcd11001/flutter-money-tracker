@@ -1,0 +1,17 @@
+{
+    "@@locale": "en",
+
+    "paymentAmount": "{value}",
+    "@paymentAmount": {
+        "placeholders": {
+            "value": {
+                "type": "double",
+                "format": "simpleCurrency",
+                "optionalParameters": {
+                    "decimalDigits": 2
+                },
+                "description": "The amount of the payment"
+            }
+        }
+    }
+}
