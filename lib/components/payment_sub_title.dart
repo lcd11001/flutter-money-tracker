@@ -14,7 +14,7 @@ class PaymentSubTitle extends StatelessWidget {
     return Text(
       payment.formattedAmount,
       style: const TextStyle(
-        fontSize: 14.0,
+        fontSize: 18.0,
         color: Colors.green,
       ),
     );

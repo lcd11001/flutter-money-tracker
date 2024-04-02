@@ -12,10 +12,11 @@ class PaymentDateTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(
           payment.icon,
-          size: 16.0,
+          size: 20.0,
           color: Colors.grey,
         ),
         const SizedBox(width: 4.0),
@@ -25,6 +26,7 @@ class PaymentDateTime extends StatelessWidget {
             fontSize: 12.0,
             color: Colors.grey,
           ),
+          textAlign: TextAlign.end,
         ),
       ],
     );

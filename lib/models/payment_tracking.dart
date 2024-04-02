@@ -3,7 +3,8 @@ import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
 import 'package:money_tracker/models/payment_category.dart';
 
-final dateFormatter = DateFormat("dd MMM yyyy 'at' h:mm aaa");
+final dateLongFormatter = DateFormat("dd MMM yyyy'\n'h:mm aaa");
+final dateShortFormatter = DateFormat("dd MMM yyyy");
 final amountFormatter = NumberFormat.simpleCurrency(decimalDigits: 2);
 const uuid = Uuid();
 
@@ -21,7 +22,9 @@ class PaymentTracking {
     required this.category,
   }) : id = uuid.v4();
 
-  String get formattedDate => dateFormatter.format(date);
+  String get formattedShortDate => dateShortFormatter.format(date);
+  String get formattedLongDate => dateLongFormatter.format(date);
+  String get formattedDate => formattedShortDate;
   String get formattedAmount => amountFormatter.format(amount);
   IconData? get icon => categoryIcons[category];
 }
