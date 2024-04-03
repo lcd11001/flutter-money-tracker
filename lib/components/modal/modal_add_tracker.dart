@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -37,6 +35,16 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
     Navigator.pop(context);
   }
 
+  void _showDatePicker() {
+    final now = DateTime.now();
+    showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: DateTime(now.year - 1),
+      lastDate: now,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
@@ -55,21 +63,40 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               // onChanged: _saveInputTitle,
               controller: _titleController,
             ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: loc.inputAmount,
-                prefixText: '${amountFormatter.currencySymbol} ',
-              ),
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: loc.inputAmount,
+                      prefixText: '${amountFormatter.currencySymbol} ',
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                    ],
+                    controller: _amountController,
+                  ),
+                ),
+                const SizedBox(
+                  width: 16.0,
+                ),
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text("selected date"),
+                      IconButton(
+                        icon: const Icon(Icons.calendar_month),
+                        alignment: Alignment.bottomCenter,
+                        onPressed: _showDatePicker,
+                      ),
+                    ],
+                  ),
+                ),
               ],
-              controller: _amountController,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: loc.inputDate,
-              ),
             ),
             const SizedBox(
               height: 32.0,
