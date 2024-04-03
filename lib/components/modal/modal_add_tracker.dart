@@ -10,10 +10,19 @@ class ModalAddTracker extends StatefulWidget {
 }
 
 class _ModalAddTrackerState extends State<ModalAddTracker> {
+  /*
   String _inputTitle = '';
 
   _saveInputTitle(String value) {
     _inputTitle = value;
+  }
+  */
+  final _titleController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _titleController.dispose();
   }
 
   @override
@@ -30,7 +39,8 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               ),
               maxLength: 50,
               keyboardType: TextInputType.text,
-              onChanged: _saveInputTitle,
+              // onChanged: _saveInputTitle,
+              controller: _titleController,
             ),
             TextField(
               decoration: InputDecoration(
@@ -48,7 +58,8 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    debugPrint(_inputTitle);
+                    // debugPrint(_inputTitle);
+                    debugPrint(_titleController.text);
                   },
                   child: Text(loc.buttonAdd),
                 ),
