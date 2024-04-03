@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:money_tracker/utils/utils.dart';
+import 'package:money_tracker/utils/thousands_formatter.dart';
 
 class ModalAddTracker extends StatefulWidget {
   const ModalAddTracker({super.key});
@@ -24,6 +25,16 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
   final _dateController = TextEditingController();
 
   DateTime? _selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDate = null;
+
+    Future.delayed(Duration.zero, () {
+      _dateController.text = AppLocalizations.of(context)!.inputDatePlaceholder;
+    });
+  }
 
   @override
   void dispose() {
@@ -80,6 +91,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                ThousandsFormatter(),
               ],
               controller: _amountController,
             ),

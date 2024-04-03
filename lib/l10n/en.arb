@@ -34,6 +34,7 @@
     "inputTitle": "Title",
     "inputAmount": "Amount",
     "inputDate": "Date",
+    "inputDatePlaceholder": "No date selected",
     "inputCategory": "Category",
 
     "buttonAdd": "Add",
