@@ -84,6 +84,9 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               // onChanged: _saveInputTitle,
               controller: _titleController,
             ),
+            // const SizedBox(
+            //   height: 0.0,
+            // ),
             TextField(
               decoration: InputDecoration(
                 labelText: loc.inputAmount,
@@ -96,6 +99,9 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               ],
               controller: _amountController,
             ),
+            const SizedBox(
+              height: 16.0,
+            ),
             TextField(
               decoration: InputDecoration(
                 labelText: loc.inputDate,
@@ -105,7 +111,13 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               onTap: _showDatePicker,
               controller: _dateController,
             ),
+            const SizedBox(
+              height: 16.0,
+            ),
             const CategoryDropdown(),
+            const SizedBox(
+              height: 16.0,
+            ),
             const SizedBox(
               height: 32.0,
             ),

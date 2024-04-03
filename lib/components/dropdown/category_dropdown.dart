@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:money_tracker/models/payment_category.dart';
 import 'package:money_tracker/utils/utils.dart';
 
@@ -33,18 +35,29 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<Category>(
-      isExpanded: true,
-      value: _selectedCategory,
-      items: _dropdownMenuEntries,
-      onChanged: (value) {
-        debugPrint(value.toString());
-        if (value != null) {
-          setState(() {
-            _selectedCategory = value;
-          });
-        }
-      },
+    final loc = AppLocalizations.of(context)!;
+
+    return InputDecorator(
+      decoration: InputDecoration(
+        labelText: loc.inputCategory,
+        border: const UnderlineInputBorder(),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<Category>(
+          isExpanded: true,
+          isDense: true,
+          value: _selectedCategory,
+          items: _dropdownMenuEntries,
+          onChanged: (value) {
+            debugPrint(value.toString());
+            if (value != null) {
+              setState(() {
+                _selectedCategory = value;
+              });
+            }
+          },
+        ),
+      ),
     );
   }
 }
