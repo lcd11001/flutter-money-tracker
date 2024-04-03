@@ -63,40 +63,24 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               // onChanged: _saveInputTitle,
               controller: _titleController,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: loc.inputAmount,
-                      prefixText: '${amountFormatter.currencySymbol} ',
-                    ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-                    ],
-                    controller: _amountController,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16.0,
-                ),
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text("selected date"),
-                      IconButton(
-                        icon: const Icon(Icons.calendar_month),
-                        alignment: Alignment.bottomCenter,
-                        onPressed: _showDatePicker,
-                      ),
-                    ],
-                  ),
-                ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: loc.inputAmount,
+                prefixText: '${amountFormatter.currencySymbol} ',
+              ),
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
               ],
+              controller: _amountController,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: loc.inputDate,
+                suffixIcon: const Icon(Icons.calendar_month),
+              ),
+              readOnly: true,
+              onTap: _showDatePicker,
             ),
             const SizedBox(
               height: 32.0,
