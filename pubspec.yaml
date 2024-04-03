@@ -12,6 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  rename: ^3.0.2
   uuid: ^4.3.3
 
 dev_dependencies:

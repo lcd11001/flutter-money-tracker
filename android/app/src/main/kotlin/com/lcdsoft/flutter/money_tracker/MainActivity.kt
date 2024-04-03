@@ -1,4 +1,4 @@
-package com.lcdsoft.flutter.money_tracker
+package com.lcdsoft.flutter.moneytracker
 
 import io.flutter.embedding.android.FlutterActivity
 
