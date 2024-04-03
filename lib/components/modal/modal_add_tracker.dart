@@ -10,6 +10,12 @@ class ModalAddTracker extends StatefulWidget {
 }
 
 class _ModalAddTrackerState extends State<ModalAddTracker> {
+  String _inputTitle = '';
+
+  _saveInputTitle(String value) {
+    _inputTitle = value;
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
@@ -24,6 +30,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               ),
               maxLength: 50,
               keyboardType: TextInputType.text,
+              onChanged: _saveInputTitle,
             ),
             TextField(
               decoration: InputDecoration(
@@ -36,9 +43,20 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
                 labelText: loc.inputDate,
               ),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text(loc.buttonAdd),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    debugPrint(_inputTitle);
+                  },
+                  child: Text(loc.buttonAdd),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(loc.buttonCancel),
+                ),
+              ],
             ),
           ],
         ));
