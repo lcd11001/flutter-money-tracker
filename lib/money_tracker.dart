@@ -22,6 +22,16 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Money Tracker'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            color: Colors.blue,
+            onPressed: () {},
+          ),
+        ],
+      ),
       body: Column(
         children: [
           const Text('The chart'),

@@ -4,9 +4,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:money_tracker/money_tracker.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    localizationsDelegates: AppLocalizations.localizationsDelegates,
-    supportedLocales: AppLocalizations.supportedLocales,
-    home: MoneyTrackerApp(),
-  ));
+  runApp(
+    MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
+      home: const MoneyTrackerApp(),
+    ),
+  );
 }
