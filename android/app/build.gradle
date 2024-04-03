@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.lcdsoft.flutter.money_tracker"
+    namespace "com.lcdsoft.flutter.moneytracker"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
