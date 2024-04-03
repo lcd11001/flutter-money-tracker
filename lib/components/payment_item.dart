@@ -18,15 +18,15 @@ class PaymentItem extends StatelessWidget {
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20.0,
-          vertical: 16.0,
+          horizontal: 16.0,
+          vertical: 8.0,
         ),
         // minVerticalPadding: 10.0,
-        dense: true,
-        visualDensity: const VisualDensity(
-          horizontal: 0,
-          vertical: 4,
-        ),
+        // dense: true,
+        // visualDensity: const VisualDensity(
+        //   horizontal: 4,
+        //   vertical: 4,
+        // ),
         title: PaymentTitle(
           payment: payment,
         ),
@@ -38,10 +38,20 @@ class PaymentItem extends StatelessWidget {
             const Spacer(),
             PaymentDateTime(
               payment: payment,
+              showIcon: false,
             )
           ],
         ),
         trailing: const Icon(Icons.arrow_forward_ios),
+        leading: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              payment.icon,
+              size: 35,
+            ),
+          ],
+        ),
       ),
     );
   }

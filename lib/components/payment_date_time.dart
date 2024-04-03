@@ -5,21 +5,27 @@ class PaymentDateTime extends StatelessWidget {
   const PaymentDateTime({
     super.key,
     required this.payment,
+    this.showIcon = true,
   });
 
   final PaymentTracking payment;
+  final bool showIcon;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(
-          payment.icon,
-          size: 20.0,
-          color: Colors.grey,
-        ),
-        const SizedBox(width: 4.0),
+        if (showIcon)
+          Icon(
+            payment.icon,
+            size: 20.0,
+            color: Colors.grey,
+          ),
+        if (showIcon)
+          const SizedBox(
+            width: 4.0,
+          ),
         Text(
           payment.formattedDate,
           style: const TextStyle(
