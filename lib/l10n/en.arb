@@ -25,5 +25,17 @@
                 "description": "The date of the payment"
             }
         }
-    }
+    },
+
+    "appTitle": "Money Tracker",
+
+    "appbarTitle": "Money Tracker",
+
+    "inputTitle": "Title",
+    "inputAmount": "Amount",
+    "inputDate": "Date",
+    "inputCategory": "Category",
+
+    "buttonAdd": "Add",
+    "buttonCancel": "Cancel"
 }
