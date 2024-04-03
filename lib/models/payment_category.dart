@@ -19,7 +19,7 @@ enum Category {
   giftsAndDonations,
   pets,
   kids,
-  other,
+  others,
 }
 
 const Map<Category, IconData> categoryIcons = {
@@ -41,5 +41,5 @@ const Map<Category, IconData> categoryIcons = {
   Category.giftsAndDonations: Icons.card_giftcard,
   Category.pets: Icons.pets,
   Category.kids: Icons.child_friendly,
-  Category.other: Icons.attach_money,
+  Category.others: Icons.attach_money,
 };

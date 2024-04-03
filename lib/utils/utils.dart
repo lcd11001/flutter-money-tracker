@@ -6,3 +6,12 @@ final dateShortFormatter = DateFormat("dd MMM yyyy");
 final amountFormatter = NumberFormat.simpleCurrency(decimalDigits: 2);
 
 const uuid = Uuid();
+
+String convertCamelCaseToTitle(String text) {
+  final regExp = RegExp(r'(?<=[a-z])[A-Z]');
+  String result = text.replaceAllMapped(regExp, (match) {
+    return ' ${match.group(0)}';
+  });
+
+  return result[0].toUpperCase() + result.substring(1);
+}

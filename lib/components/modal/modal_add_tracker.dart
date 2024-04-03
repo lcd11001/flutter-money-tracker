@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:money_tracker/components/dropdown/category_dropdown.dart';
 import 'package:money_tracker/utils/utils.dart';
 import 'package:money_tracker/utils/thousands_formatter.dart';
 
@@ -104,6 +105,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               onTap: _showDatePicker,
               controller: _dateController,
             ),
+            const CategoryDropdown(),
             const SizedBox(
               height: 32.0,
             ),

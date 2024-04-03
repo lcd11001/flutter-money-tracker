@@ -244,7 +244,7 @@ class PaymentData {
             minutes: random.nextInt(60),
           ),
         ),
-        category: Category.other,
+        category: Category.others,
       ),
     ];
   }
