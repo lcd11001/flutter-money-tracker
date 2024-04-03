@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-final amountFormatter = NumberFormat.simpleCurrency(decimalDigits: 2);
+import 'package:money_tracker/utils/utils.dart';
 
 class ModalAddTracker extends StatefulWidget {
   const ModalAddTracker({super.key});
@@ -23,6 +21,9 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
   */
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
+  final _dateController = TextEditingController();
+
+  DateTime? _selectedDate;
 
   @override
   void dispose() {
@@ -35,14 +36,22 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
     Navigator.pop(context);
   }
 
-  void _showDatePicker() {
+  void _showDatePicker() async {
     final now = DateTime.now();
-    showDatePicker(
+    var finalDate = await showDatePicker(
       context: context,
       initialDate: now,
       firstDate: DateTime(now.year - 1),
       lastDate: now,
     );
+
+    if (finalDate != null) {
+      debugPrint(finalDate.toString());
+      setState(() {
+        _selectedDate = finalDate;
+        _dateController.text = dateShortFormatter.format(finalDate);
+      });
+    }
   }
 
   @override
@@ -81,6 +90,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               ),
               readOnly: true,
               onTap: _showDatePicker,
+              controller: _dateController,
             ),
             const SizedBox(
               height: 32.0,

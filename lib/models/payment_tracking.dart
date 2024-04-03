@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
-import 'package:intl/intl.dart';
-import 'package:money_tracker/models/payment_category.dart';
 
-final dateLongFormatter = DateFormat("dd MMM yyyy'\n'h:mm aaa");
-final dateShortFormatter = DateFormat("dd MMM yyyy");
-final amountFormatter = NumberFormat.simpleCurrency(decimalDigits: 2);
-const uuid = Uuid();
+import 'package:money_tracker/models/payment_category.dart';
+import 'package:money_tracker/utils/utils.dart';
 
 class PaymentTracking {
   final String id;
