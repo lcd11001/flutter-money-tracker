@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:money_tracker/components/app_version.dart';
 
 import 'package:money_tracker/components/modal/modal_add_tracker.dart';
 import 'package:money_tracker/components/payment/payment_list.dart';
@@ -21,10 +22,12 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   }
 
   void _openAddPaymentOverlay() {
+    final colorScheme = Theme.of(context).colorScheme;
     // NOTE: do not use showBottomSheet() as it is cause error
     // ‘No Scaffold widget found’
     showModalBottomSheet(
       context: context,
+      backgroundColor: colorScheme.surface,
       builder: (ctx) => const ModalAddTracker(),
     );
   }
@@ -32,6 +35,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
@@ -50,6 +54,9 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
           Expanded(
             child: PaymentList(payments: PaymentData.data),
           ),
+          Container(
+              color: colorScheme.surface,
+              child: const AppVersion(textColor: Colors.black)),
         ],
       ),
     );
