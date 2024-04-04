@@ -38,5 +38,15 @@
     "inputCategory": "Category",
 
     "buttonAdd": "Add",
-    "buttonCancel": "Cancel"
+    "buttonCancel": "Cancel",
+    "buttonClose": "Close",
+
+    "errorTitleRequired": "Title is required",
+    "errorAmountRequired": "Amount is required",
+    "errorAmountInvalid": "Amount is invalid",
+    "errorDateInvalid": "Date is invalid",
+    "errorCategoryRequired": "Category is required",
+    
+    "errorDialogTitle": "Invalid input",
+    "errorDialogMessage": "Please make sure all fields are filled in correctly."
 }

@@ -26,6 +26,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
   final _dateController = TextEditingController();
 
   DateTime? _selectedDate;
+  bool _isSubmitting = false;
 
   @override
   void initState() {
@@ -34,6 +35,12 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
 
     Future.delayed(Duration.zero, () {
       _dateController.text = AppLocalizations.of(context)!.inputDatePlaceholder;
+    });
+  }
+
+  void setStateSubmitting(bool value) {
+    setState(() {
+      _isSubmitting = value;
     });
   }
 
@@ -78,10 +85,13 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
             TextField(
               decoration: InputDecoration(
                 labelText: loc.inputTitle,
+                errorText: _isSubmitting && !_validateTitle()
+                    ? loc.errorTitleRequired
+                    : null,
               ),
               maxLength: 50,
               keyboardType: TextInputType.text,
-              // onChanged: _saveInputTitle,
+              onChanged: (_) => setStateSubmitting(false),
               controller: _titleController,
             ),
             // const SizedBox(
@@ -91,12 +101,16 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               decoration: InputDecoration(
                 labelText: loc.inputAmount,
                 prefixText: '${amountFormatter.currencySymbol} ',
+                errorText: _isSubmitting && !_validateAmount()
+                    ? loc.errorAmountRequired
+                    : null,
               ),
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
                 ThousandsFormatter(),
               ],
+              onChanged: (_) => setStateSubmitting(false),
               controller: _amountController,
             ),
             const SizedBox(
@@ -106,6 +120,9 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               decoration: InputDecoration(
                 labelText: loc.inputDate,
                 suffixIcon: const Icon(Icons.calendar_month),
+                errorText: _isSubmitting && !_validateDate()
+                    ? loc.errorDateInvalid
+                    : null,
               ),
               readOnly: true,
               onTap: _showDatePicker,
@@ -144,9 +161,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
                   Expanded(
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        // debugPrint(_inputTitle);
-                        debugPrint(_titleController.text);
-                        debugPrint(_amountController.text);
+                        _submitPayment();
                       },
                       icon: const Icon(Icons.add),
                       label: Text(loc.buttonAdd),
@@ -160,5 +175,59 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
             ),
           ],
         ));
+  }
+
+  void _submitPayment() {
+    setStateSubmitting(true);
+
+    if (!_validateTitle() || !_validateAmount() || !_validateDate()) {
+      _showErrorDialog();
+      return;
+    }
+  }
+
+  bool _validateTitle() {
+    if (_titleController.text.trim().isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
+  bool _validateAmount() {
+    if (_amountController.text.trim().isEmpty) {
+      return false;
+    }
+
+    double amount = double.tryParse(_amountController.text) ?? 0.0;
+    if (amount <= 0.0) {
+      return false;
+    }
+
+    return true;
+  }
+
+  bool _validateDate() {
+    return _selectedDate != null;
+  }
+
+  void _showErrorDialog() {
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          final loc = AppLocalizations.of(ctx)!;
+
+          return AlertDialog(
+            title: Text(loc.errorDialogTitle),
+            content: Text(loc.errorDialogMessage),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx);
+                },
+                child: Text(loc.buttonClose),
+              ),
+            ],
+          );
+        });
   }
 }
