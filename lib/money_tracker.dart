@@ -48,6 +48,14 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     });
   }
 
+  void _removePayment(String id) {
+    PaymentData.remove(id);
+
+    setState(() {
+      paymentsLength = PaymentData.data.length;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
@@ -68,7 +76,10 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
         children: [
           const Text('The chart'),
           Expanded(
-            child: PaymentList(payments: PaymentData.data),
+            child: PaymentList(
+              payments: PaymentData.data,
+              onRemovePayment: _removePayment,
+            ),
           ),
           Container(
             color: colorScheme.surface,

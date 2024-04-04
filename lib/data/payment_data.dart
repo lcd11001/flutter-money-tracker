@@ -20,6 +20,10 @@ class PaymentData {
     data.add(payment);
   }
 
+  static void remove(String id) {
+    data.removeWhere((element) => element.id == id);
+  }
+
   static List<PaymentTracking> _getSampleData() {
     return [
       PaymentTracking(
