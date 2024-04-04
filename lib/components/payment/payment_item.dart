@@ -15,6 +15,7 @@ class PaymentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // use Card to make the ListTile have a shadow
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(

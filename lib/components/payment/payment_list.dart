@@ -11,7 +11,10 @@ class PaymentList extends StatelessWidget {
   });
 
   Widget buildListItem(BuildContext context, int index) {
-    return PaymentItem(payment: payments[index]);
+    return Dismissible(
+      key: ValueKey(payments[index].id),
+      child: PaymentItem(payment: payments[index]),
+    );
   }
 
   @override

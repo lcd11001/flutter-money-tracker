@@ -31,6 +31,8 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     // ‘No Scaffold widget found’
     showModalBottomSheet(
       context: context,
+      // make the modal full screen
+      isScrollControlled: true,
       backgroundColor: colorScheme.surface,
       builder: (ctx) => ModalAddTracker(
         onAddPayment: _addPayment,

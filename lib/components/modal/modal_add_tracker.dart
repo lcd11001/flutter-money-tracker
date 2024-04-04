@@ -90,100 +90,107 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                labelText: loc.inputTitle,
-                errorText: _isSubmitting && !_validateTitle()
-                    ? loc.errorTitleRequired
-                    : null,
-              ),
-              maxLength: 50,
-              keyboardType: TextInputType.text,
-              onChanged: (_) => _setStateSubmitting(false),
-              controller: _titleController,
+      // 48.0 is the top padding to avoid the status bar
+      padding: const EdgeInsets.fromLTRB(
+        16.0,
+        48.0,
+        16.0,
+        16.0,
+      ),
+      child: Column(
+        children: [
+          TextField(
+            decoration: InputDecoration(
+              labelText: loc.inputTitle,
+              errorText: _isSubmitting && !_validateTitle()
+                  ? loc.errorTitleRequired
+                  : null,
             ),
-            // const SizedBox(
-            //   height: 0.0,
-            // ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: loc.inputAmount,
-                prefixText: '${amountFormatter.currencySymbol} ',
-                errorText: _isSubmitting && !_validateAmount()
-                    ? loc.errorAmountRequired
-                    : null,
-              ),
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-                ThousandsFormatter(),
+            maxLength: 50,
+            keyboardType: TextInputType.text,
+            onChanged: (_) => _setStateSubmitting(false),
+            controller: _titleController,
+          ),
+          // const SizedBox(
+          //   height: 0.0,
+          // ),
+          TextField(
+            decoration: InputDecoration(
+              labelText: loc.inputAmount,
+              prefixText: '${amountFormatter.currencySymbol} ',
+              errorText: _isSubmitting && !_validateAmount()
+                  ? loc.errorAmountRequired
+                  : null,
+            ),
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+              ThousandsFormatter(),
+            ],
+            onChanged: (_) => _setStateSubmitting(false),
+            controller: _amountController,
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          TextField(
+            decoration: InputDecoration(
+              labelText: loc.inputDate,
+              suffixIcon: const Icon(Icons.calendar_month),
+              errorText: _isSubmitting && !_validateDate()
+                  ? loc.errorDateInvalid
+                  : null,
+            ),
+            readOnly: true,
+            onTap: _showDatePicker,
+            controller: _dateController,
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          CategoryDropdown(
+            onCategorySelected: _onCategorySelected,
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          const SizedBox(
+            height: 32.0,
+          ),
+          IntrinsicWidth(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: _closeModal,
+                    icon: const Icon(Icons.cancel),
+                    label: Text(loc.buttonCancel),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: colorScheme.error,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 16.0,
+                ),
+                Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: _submitPayment,
+                    icon: const Icon(Icons.add),
+                    label: Text(loc.buttonAdd),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: colorScheme.primary,
+                    ),
+                  ),
+                ),
               ],
-              onChanged: (_) => _setStateSubmitting(false),
-              controller: _amountController,
             ),
-            const SizedBox(
-              height: 16.0,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: loc.inputDate,
-                suffixIcon: const Icon(Icons.calendar_month),
-                errorText: _isSubmitting && !_validateDate()
-                    ? loc.errorDateInvalid
-                    : null,
-              ),
-              readOnly: true,
-              onTap: _showDatePicker,
-              controller: _dateController,
-            ),
-            const SizedBox(
-              height: 16.0,
-            ),
-            CategoryDropdown(
-              onCategorySelected: _onCategorySelected,
-            ),
-            const SizedBox(
-              height: 16.0,
-            ),
-            const SizedBox(
-              height: 32.0,
-            ),
-            IntrinsicWidth(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: _closeModal,
-                      icon: const Icon(Icons.cancel),
-                      label: Text(loc.buttonCancel),
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: colorScheme.error,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 16.0,
-                  ),
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: _submitPayment,
-                      icon: const Icon(Icons.add),
-                      label: Text(loc.buttonAdd),
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 
   void _submitPayment() {
