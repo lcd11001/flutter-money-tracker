@@ -48,5 +48,7 @@
     "errorCategoryRequired": "Category is required",
     
     "errorDialogTitle": "Invalid input",
-    "errorDialogMessage": "Please make sure all fields are filled in correctly."
+    "errorDialogMessage": "Please make sure all fields are filled in correctly.",
+
+    "warningNoPaymentData": "No expenses recorded yet.\nPlease add some expenses to see the chart."
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:money_tracker/components/payment/payment_item.dart';
 import 'package:money_tracker/models/payment_tracking.dart';
 import 'package:money_tracker/utils/utils.dart';
@@ -28,6 +30,20 @@ class PaymentList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
+    if (payments.isEmpty) {
+      return Container(
+        padding: const EdgeInsets.all(32.0),
+        child: Center(
+          child: Text(
+            loc.warningNoPaymentData,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+
     return ListView.builder(
       itemCount: payments.length,
       itemBuilder: buildListItem,
