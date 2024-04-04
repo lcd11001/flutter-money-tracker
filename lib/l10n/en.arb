@@ -50,5 +50,17 @@
     "errorDialogTitle": "Invalid input",
     "errorDialogMessage": "Please make sure all fields are filled in correctly.",
 
-    "warningNoPaymentData": "No expenses recorded yet.\nPlease add some expenses to see the chart."
+    "warningNoPaymentData": "No expenses recorded yet.\nPlease add some expenses to see the chart.",
+
+    "warningPaymentDeleted": "{title} deleted",
+    "@warningPaymentDeleted": {
+        "placeholders": {
+            "title": {
+                "type": "String",
+                "description": "The title of the deleted payment"
+            }
+        }
+    },
+
+    "warningPaymentUndo": "Undo"
 }

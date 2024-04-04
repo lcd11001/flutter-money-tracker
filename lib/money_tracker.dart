@@ -49,11 +49,40 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   }
 
   void _removePayment(String id) {
-    PaymentData.remove(id);
+    final removedItem = PaymentData.remove(id);
 
     setState(() {
       paymentsLength = PaymentData.data.length;
     });
+
+    _showSnackBar(removedItem);
+  }
+
+  void _showSnackBar(PaymentTracking removedItem) {
+    final loc = AppLocalizations.of(context)!;
+
+    // clear all previous snackbars
+    ScaffoldMessenger.of(context).clearSnackBars();
+    // show the new snackbar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: Text(
+          loc.warningPaymentDeleted(removedItem.title),
+          style: const TextStyle(fontSize: 16.0),
+        ),
+        action: SnackBarAction(
+          label: loc.warningPaymentUndo,
+          onPressed: () {
+            PaymentData.add(removedItem);
+
+            setState(() {
+              paymentsLength = PaymentData.data.length;
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override

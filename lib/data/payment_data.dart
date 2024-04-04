@@ -26,9 +26,12 @@ class PaymentData {
     _sortData();
   }
 
-  static void remove(String id) {
-    data.removeWhere((element) => element.id == id);
+  static PaymentTracking remove(String id) {
+    // data.removeWhere((element) => element.id == id);
+    final payment = data.firstWhere((element) => element.id == id);
+    data.remove(payment);
     _sortData();
+    return payment;
   }
 
   static List<PaymentTracking> _getSampleData() {
