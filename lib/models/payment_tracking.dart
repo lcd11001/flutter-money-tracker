@@ -20,6 +20,11 @@ class PaymentTracking {
   String get formattedShortDate => dateShortFormatter.format(date);
   String get formattedLongDate => dateLongFormatter.format(date);
   String get formattedDate => formattedLongDate;
+
+  String get format24HourTime => time24Formatter.format(date);
+  String get format12HourTime => time12Formatter.format(date);
+  String get formatTime => format12HourTime;
+
   String get formattedAmount => amountFormatter.format(amount);
   IconData? get icon => categoryIcons[category];
 }

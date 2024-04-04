@@ -6,6 +6,10 @@ typedef ReturnCallback<R, P> = R Function(P value);
 
 final dateLongFormatter = DateFormat("dd MMM yyyy'\n'h:mm aaa");
 final dateShortFormatter = DateFormat("dd MMM yyyy");
+
+final time24Formatter = DateFormat("HH:mm");
+final time12Formatter = DateFormat("h:mm aaa");
+
 final amountFormatter = NumberFormat.simpleCurrency(decimalDigits: 2);
 
 const uuid = Uuid();

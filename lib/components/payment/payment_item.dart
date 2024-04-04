@@ -7,10 +7,12 @@ import 'payment_title.dart';
 
 class PaymentItem extends StatelessWidget {
   final PaymentTracking payment;
+  final bool showOnlyTime;
 
   const PaymentItem({
     super.key,
     required this.payment,
+    this.showOnlyTime = false,
   });
 
   @override
@@ -40,6 +42,7 @@ class PaymentItem extends StatelessWidget {
             PaymentDateTime(
               payment: payment,
               showIcon: false,
+              showOnlyTime: showOnlyTime,
             )
           ],
         ),
