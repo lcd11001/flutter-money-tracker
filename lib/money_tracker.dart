@@ -6,7 +6,6 @@ import 'package:money_tracker/components/app_version.dart';
 import 'package:money_tracker/components/modal/modal_add_tracker.dart';
 import 'package:money_tracker/components/payment/payment_list.dart';
 import 'package:money_tracker/data/payment_data.dart';
-import 'package:money_tracker/models/payment_category.dart';
 import 'package:money_tracker/models/payment_tracking.dart';
 
 class MoneyTrackerApp extends StatefulWidget {

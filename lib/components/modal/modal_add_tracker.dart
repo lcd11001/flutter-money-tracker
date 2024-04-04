@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -64,7 +62,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
     _amountController.dispose();
   }
 
-  _closeModal(BuildContext context) {
+  _closeModal() {
     Navigator.pop(context);
   }
 
@@ -160,9 +158,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
                 children: [
                   Expanded(
                     child: ElevatedButton.icon(
-                      onPressed: () {
-                        _closeModal(context);
-                      },
+                      onPressed: _closeModal,
                       icon: const Icon(Icons.cancel),
                       label: Text(loc.buttonCancel),
                       style: ElevatedButton.styleFrom(
@@ -175,9 +171,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
                   ),
                   Expanded(
                     child: ElevatedButton.icon(
-                      onPressed: () {
-                        _submitPayment(context);
-                      },
+                      onPressed: _submitPayment,
                       icon: const Icon(Icons.add),
                       label: Text(loc.buttonAdd),
                       style: ElevatedButton.styleFrom(
@@ -192,7 +186,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
         ));
   }
 
-  void _submitPayment(BuildContext context) {
+  void _submitPayment() {
     _setStateSubmitting(true);
 
     if (!_validateTitle() || !_validateAmount() || !_validateDate()) {
@@ -208,7 +202,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
     );
 
     widget.onAddPayment(newPayment);
-    _closeModal(context);
+    _closeModal();
   }
 
   bool _validateTitle() {
