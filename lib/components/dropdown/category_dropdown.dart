@@ -5,7 +5,9 @@ import 'package:money_tracker/models/payment_category.dart';
 import 'package:money_tracker/utils/utils.dart';
 
 class CategoryDropdown extends StatefulWidget {
-  const CategoryDropdown({super.key});
+  const CategoryDropdown({super.key, required this.onCategorySelected});
+
+  final ReturnCallback<void, Category> onCategorySelected;
 
   @override
   State<CategoryDropdown> createState() => _CategoryDropdownState();
@@ -54,6 +56,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
               setState(() {
                 _selectedCategory = value;
               });
+              widget.onCategorySelected(value);
             }
           },
         ),

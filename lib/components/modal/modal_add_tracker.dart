@@ -1,13 +1,19 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:money_tracker/components/dropdown/category_dropdown.dart';
+import 'package:money_tracker/models/payment_category.dart';
+import 'package:money_tracker/models/payment_tracking.dart';
 import 'package:money_tracker/utils/utils.dart';
 import 'package:money_tracker/utils/thousands_formatter.dart';
 
 class ModalAddTracker extends StatefulWidget {
-  const ModalAddTracker({super.key});
+  const ModalAddTracker({super.key, required this.onAddPayment});
+
+  final Callback<PaymentTracking> onAddPayment;
 
   @override
   State<StatefulWidget> createState() => _ModalAddTrackerState();
@@ -25,6 +31,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
   final _amountController = TextEditingController();
   final _dateController = TextEditingController();
 
+  Category _category = Category.others;
   DateTime? _selectedDate;
   bool _isSubmitting = false;
 
@@ -38,7 +45,13 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
     });
   }
 
-  void setStateSubmitting(bool value) {
+  void _onCategorySelected(Category value) {
+    setState(() {
+      _category = value;
+    });
+  }
+
+  void _setStateSubmitting(bool value) {
     setState(() {
       _isSubmitting = value;
     });
@@ -91,7 +104,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               ),
               maxLength: 50,
               keyboardType: TextInputType.text,
-              onChanged: (_) => setStateSubmitting(false),
+              onChanged: (_) => _setStateSubmitting(false),
               controller: _titleController,
             ),
             // const SizedBox(
@@ -110,7 +123,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
                 ThousandsFormatter(),
               ],
-              onChanged: (_) => setStateSubmitting(false),
+              onChanged: (_) => _setStateSubmitting(false),
               controller: _amountController,
             ),
             const SizedBox(
@@ -131,7 +144,9 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
             const SizedBox(
               height: 16.0,
             ),
-            const CategoryDropdown(),
+            CategoryDropdown(
+              onCategorySelected: _onCategorySelected,
+            ),
             const SizedBox(
               height: 16.0,
             ),
@@ -161,7 +176,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
                   Expanded(
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        _submitPayment();
+                        _submitPayment(context);
                       },
                       icon: const Icon(Icons.add),
                       label: Text(loc.buttonAdd),
@@ -177,13 +192,23 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
         ));
   }
 
-  void _submitPayment() {
-    setStateSubmitting(true);
+  void _submitPayment(BuildContext context) {
+    _setStateSubmitting(true);
 
     if (!_validateTitle() || !_validateAmount() || !_validateDate()) {
       _showErrorDialog();
       return;
     }
+
+    final newPayment = PaymentTracking(
+      title: _titleController.text.trim(),
+      amount: double.parse(_amountController.text.replaceAll(',', '')),
+      date: _selectedDate!,
+      category: _category,
+    );
+
+    widget.onAddPayment(newPayment);
+    _closeModal(context);
   }
 
   bool _validateTitle() {
@@ -198,7 +223,8 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
       return false;
     }
 
-    double amount = double.tryParse(_amountController.text) ?? 0.0;
+    double amount =
+        double.tryParse(_amountController.text.replaceAll(',', '')) ?? 0.0;
     if (amount <= 0.0) {
       return false;
     }

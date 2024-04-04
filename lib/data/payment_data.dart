@@ -16,6 +16,10 @@ class PaymentData {
     return data;
   }
 
+  static void add(PaymentTracking payment) {
+    data.add(payment);
+  }
+
   static List<PaymentTracking> _getSampleData() {
     return [
       PaymentTracking(

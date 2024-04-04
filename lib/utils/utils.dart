@@ -1,6 +1,9 @@
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
+typedef Callback<T> = void Function(T value);
+typedef ReturnCallback<R, P> = R Function(P value);
+
 final dateLongFormatter = DateFormat("dd MMM yyyy'\n'h:mm aaa");
 final dateShortFormatter = DateFormat("dd MMM yyyy");
 final amountFormatter = NumberFormat.simpleCurrency(decimalDigits: 2);

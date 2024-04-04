@@ -6,6 +6,8 @@ import 'package:money_tracker/components/app_version.dart';
 import 'package:money_tracker/components/modal/modal_add_tracker.dart';
 import 'package:money_tracker/components/payment/payment_list.dart';
 import 'package:money_tracker/data/payment_data.dart';
+import 'package:money_tracker/models/payment_category.dart';
+import 'package:money_tracker/models/payment_tracking.dart';
 
 class MoneyTrackerApp extends StatefulWidget {
   const MoneyTrackerApp({super.key});
@@ -15,10 +17,13 @@ class MoneyTrackerApp extends StatefulWidget {
 }
 
 class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
+  int paymentsLength = 0;
+
   @override
   void initState() {
     super.initState();
     PaymentData.init();
+    paymentsLength = PaymentData.data.length;
   }
 
   void _openAddPaymentOverlay() {
@@ -28,8 +33,18 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     showModalBottomSheet(
       context: context,
       backgroundColor: colorScheme.surface,
-      builder: (ctx) => const ModalAddTracker(),
+      builder: (ctx) => ModalAddTracker(
+        onAddPayment: _addPayment,
+      ),
     );
+  }
+
+  void _addPayment(PaymentTracking newPayment) {
+    PaymentData.add(newPayment);
+
+    setState(() {
+      paymentsLength = PaymentData.data.length;
+    });
   }
 
   @override
@@ -55,8 +70,9 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
             child: PaymentList(payments: PaymentData.data),
           ),
           Container(
-              color: colorScheme.surface,
-              child: const AppVersion(textColor: Colors.black)),
+            color: colorScheme.surface,
+            child: const AppVersion(textColor: Colors.black),
+          ),
         ],
       ),
     );
