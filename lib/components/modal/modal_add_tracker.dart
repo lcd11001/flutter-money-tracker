@@ -29,14 +29,16 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
   final _amountController = TextEditingController();
   final _dateController = TextEditingController();
 
-  Category _category = Category.others;
-  DateTime? _selectedDate;
-  bool _isSubmitting = false;
+  late Category _category;
+  late DateTime _selectedDate;
+  late bool _isSubmitting;
 
   @override
   void initState() {
     super.initState();
-    _selectedDate = null;
+    _selectedDate = DateTime.now();
+    _category = Category.others;
+    _isSubmitting = false;
 
     Future.delayed(Duration.zero, () {
       _dateController.text = AppLocalizations.of(context)!.inputDatePlaceholder;
@@ -76,10 +78,20 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
     );
 
     if (finalDate != null) {
+      debugPrint(now.toString());
       debugPrint(finalDate.toString());
       setState(() {
-        _selectedDate = finalDate;
-        _dateController.text = dateShortFormatter.format(finalDate);
+        _selectedDate = DateTime(
+          finalDate.year,
+          finalDate.month,
+          finalDate.day,
+          // fixed: hour and minute to the current time
+          now.hour,
+          now.minute,
+          now.second,
+          now.millisecond,
+        );
+        _dateController.text = dateLongFormatter.format(_selectedDate);
       });
     }
   }

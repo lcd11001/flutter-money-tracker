@@ -6,22 +6,29 @@ import 'package:money_tracker/models/payment_category.dart';
 final random = Random();
 
 class PaymentData {
+  static void _sortData() {
+    data.sort((a, b) => b.date.compareTo(a.date));
+  }
+
   static List<PaymentTracking> data =
       List<PaymentTracking>.empty(growable: true);
 
   static List<PaymentTracking> init() {
     if (data.isEmpty) {
       data = _getSampleData();
+      _sortData();
     }
     return data;
   }
 
   static void add(PaymentTracking payment) {
     data.add(payment);
+    _sortData();
   }
 
   static void remove(String id) {
     data.removeWhere((element) => element.id == id);
+    _sortData();
   }
 
   static List<PaymentTracking> _getSampleData() {
