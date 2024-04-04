@@ -30,13 +30,13 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
   final _dateController = TextEditingController();
 
   late Category _category;
-  late DateTime _selectedDate;
+  late DateTime? _selectedDate;
   late bool _isSubmitting;
 
   @override
   void initState() {
     super.initState();
-    _selectedDate = DateTime.now();
+    _selectedDate = null;
     _category = Category.others;
     _isSubmitting = false;
 
@@ -91,7 +91,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
           now.second,
           now.millisecond,
         );
-        _dateController.text = dateLongFormatter.format(_selectedDate);
+        _dateController.text = dateLongFormatter.format(_selectedDate!);
       });
     }
   }
