@@ -11,11 +11,13 @@ class PaymentSubTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Text(
       payment.formattedAmount,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 18.0,
-        color: Colors.green,
+        color: colorScheme.secondary,
       ),
     );
   }

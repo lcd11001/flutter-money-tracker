@@ -61,20 +61,22 @@ class PaymentList extends StatelessWidget {
         element.date.day,
       ),
       groupComparator: (date1, date2) => date2.compareTo(date1),
-      groupSeparatorBuilder: buildGroupSeparator,
+      groupSeparatorBuilder: (payment) => buildGroupSeparator(context, payment),
       // Item
       itemBuilder: buildItem,
       itemComparator: (pay1, pay2) => pay1.date.compareTo(pay2.date),
     );
   }
 
-  Widget buildGroupSeparator(PaymentTracking element) {
+  Widget buildGroupSeparator(BuildContext context, PaymentTracking element) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SizedBox(
       height: 70,
       child: Container(
         margin: const EdgeInsets.only(top: 20.0),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        color: Colors.grey[300],
+        color: colorScheme.secondaryContainer,
         child: Row(
           children: [
             Text(
