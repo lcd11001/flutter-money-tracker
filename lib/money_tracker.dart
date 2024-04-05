@@ -234,7 +234,8 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
         "builder bucket: ${bucket.category} - totalAmount: ${bucket.totalAmount}");
 
     return ChartBar(
-      fill: bucket.totalAmount / 1000.0,
+      fill: bucket.totalAmount,
+      icon: categoryIcons[bucket.category]!,
     );
   }
 }
