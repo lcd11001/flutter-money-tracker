@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:money_tracker/components/payment/payment_item.dart';
+import 'package:money_tracker/models/payment_bucket.dart';
 import 'package:money_tracker/models/payment_tracking.dart';
 import 'package:money_tracker/utils/utils.dart';
 import 'package:sticky_grouped_list/sticky_grouped_list.dart';
@@ -61,14 +62,19 @@ class PaymentList extends StatelessWidget {
         element.date.day,
       ),
       groupComparator: (date1, date2) => date2.compareTo(date1),
-      groupSeparatorBuilder: (payment) => buildGroupSeparator(context, payment),
+      groupSeparatorBuilder: (element) =>
+          buildGroupSeparator(context, element, payments),
       // Item
       itemBuilder: buildItem,
       itemComparator: (pay1, pay2) => pay1.date.compareTo(pay2.date),
     );
   }
 
-  Widget buildGroupSeparator(BuildContext context, PaymentTracking element) {
+  Widget buildGroupSeparator(
+    BuildContext context,
+    PaymentTracking element,
+    List<PaymentTracking> payments,
+  ) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
@@ -83,6 +89,14 @@ class PaymentList extends StatelessWidget {
             Text(
               element.formattedShortDate,
               style: textTheme.headlineMedium!.copyWith(
+                color: colorScheme.onPrimary,
+              ),
+            ),
+            const Spacer(),
+            Text(
+              PaymentBucket.forDate(payments, element.date)
+                  .formattedTotalAmount,
+              style: textTheme.headlineSmall!.copyWith(
                 color: colorScheme.onPrimary,
               ),
             ),
