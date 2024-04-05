@@ -12,6 +12,7 @@ import 'package:money_tracker/models/payment_bucket.dart';
 import 'package:money_tracker/models/payment_category.dart';
 import 'package:money_tracker/models/payment_tracking.dart';
 import 'package:money_tracker/components/chart/chart_bar.dart';
+import 'package:money_tracker/utils/utils.dart';
 
 class MoneyTrackerApp extends StatefulWidget {
   const MoneyTrackerApp({super.key});
@@ -216,26 +217,41 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
 
   buildChartViewByCategory(BuildContext context) {
     double height = MediaQuery.of(context).size.height * 0.3;
+
     List<PaymentBucket> buckets = List<PaymentBucket>.from(
       Category.values.map(
         (category) => PaymentBucket.forCategory(PaymentData.data, category),
       ),
     );
 
+    final maxAmount = buckets.fold<double>(
+      0,
+      (max, bucket) => bucket.totalAmount > max ? bucket.totalAmount : max,
+    );
+
     return ChartView(
         data: buckets,
-        chartBuilder: chartBuilderByCategory,
+        chartBuilder: (ctx, bucket) =>
+            chartBuilderByCategory(ctx, bucket, maxAmount),
         height: height,
         title: "The chart by category");
   }
 
-  Widget chartBuilderByCategory(BuildContext context, PaymentBucket bucket) {
-    debugPrint(
-        "builder bucket: ${bucket.category} - totalAmount: ${bucket.totalAmount}");
+  Widget chartBuilderByCategory(
+    BuildContext context,
+    PaymentBucket bucket,
+    double maxAmount,
+  ) {
+    debugPrint("builder bucket: ${bucket.category} - ${bucket.totalAmount}");
+
+    final categoryName = bucket.category.toString().split('.').last;
 
     return ChartBar(
-      fill: bucket.totalAmount,
+      fill: bucket.totalAmount / maxAmount,
       icon: categoryIcons[bucket.category]!,
+      title: convertCamelCaseToTitle(categoryName),
+      value: bucket.formattedTotalAmount,
+      width: 40,
     );
   }
 }

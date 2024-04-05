@@ -3,55 +3,54 @@ import 'package:money_tracker/components/chart/chart_item.dart';
 
 class ChartBar extends ChartItem {
   final double fill;
-  final IconData icon;
+  final IconData? icon;
+  final String? title;
+  final String? value;
+  final double width;
 
   ChartBar({
     super.key,
     required this.fill,
-    required this.icon,
+    this.icon,
+    this.title,
+    this.value,
+    this.width = 20,
   }) : super(
-          builder: _buildBar,
+          builder: (ctx, item) => _buildBar(ctx, item, width),
           data: {
             'fill': fill,
             'icon': icon,
+            'title': title,
+            'value': value,
           },
         );
 
-  static Widget _buildBar<T>(BuildContext context, T item) {
+  static Widget _buildBar<T>(BuildContext context, T item, double barWidth) {
     final colorScheme = Theme.of(context).colorScheme;
-    final value = item as Map<String, dynamic>;
-    debugPrint('bar value: ${value.toString()}');
+    final textTheme = Theme.of(context).textTheme;
 
-    final fill = value['fill'] as double;
-    final icon = value['icon'] as IconData;
-    /*
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: FractionallySizedBox(
-            heightFactor: value,
-            alignment: Alignment.bottomCenter,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: colorScheme.primary,
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(4),
-                ),
-              ),
-            )),
-      ),
-    );
-    */
+    final obj = item as Map<String, dynamic>;
+    debugPrint('bar item: ${obj.toString()}');
+
+    final fill = obj['fill'] as double;
+    final icon = obj['icon'] as IconData?;
+    final title = obj['title'] as String?;
+    final value = obj['value'] as String?;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Column(
         children: [
+          if (value != null)
+            Text(
+              value,
+              style: textTheme.labelSmall,
+            ),
           Expanded(
             child: SizedBox(
-              width: 20,
+              width: barWidth,
               child: FractionallySizedBox(
-                heightFactor: fill / 500,
+                heightFactor: fill,
                 alignment: Alignment.bottomCenter,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
@@ -65,11 +64,17 @@ class ChartBar extends ChartItem {
               ),
             ),
           ),
-          Icon(
-            icon,
-            color: colorScheme.primary,
-            size: 20,
-          ),
+          if (icon != null)
+            Icon(
+              icon,
+              color: colorScheme.tertiary,
+              size: 20,
+            ),
+          if (title != null)
+            Text(
+              title,
+              style: textTheme.labelSmall,
+            ),
         ],
       ),
     );
