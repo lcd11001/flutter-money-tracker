@@ -35,7 +35,7 @@ void main() {
           backgroundColor: Colors.transparent,
         ),
       ),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       home: const MoneyTrackerApp(),
     ),
   );

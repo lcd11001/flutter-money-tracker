@@ -82,7 +82,7 @@ class PaymentList extends StatelessWidget {
           children: [
             Text(
               element.formattedShortDate,
-              style: textTheme.headlineLarge!.copyWith(
+              style: textTheme.headlineMedium!.copyWith(
                 color: colorScheme.onPrimary,
               ),
             ),

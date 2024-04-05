@@ -16,7 +16,7 @@ class PaymentTitle extends StatelessWidget {
 
     return Text(
       payment.title,
-      style: textTheme.headlineMedium!.copyWith(
+      style: textTheme.titleLarge!.copyWith(
         color: colorScheme.secondary,
       ),
     );

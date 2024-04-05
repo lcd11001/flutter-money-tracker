@@ -15,7 +15,7 @@ class PaymentSubTitle extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Text(payment.formattedAmount,
-        style: textTheme.headlineSmall!.copyWith(
+        style: textTheme.titleMedium!.copyWith(
           color: colorScheme.secondary,
         ));
   }
