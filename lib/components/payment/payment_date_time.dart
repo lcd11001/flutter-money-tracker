@@ -17,6 +17,9 @@ class PaymentDateTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -24,7 +27,7 @@ class PaymentDateTime extends StatelessWidget {
           Icon(
             payment.icon,
             size: 20.0,
-            color: Colors.grey,
+            color: colorScheme.onSurface,
           ),
         if (showIcon)
           const SizedBox(
@@ -32,9 +35,8 @@ class PaymentDateTime extends StatelessWidget {
           ),
         Text(
           showOnlyTime ? payment.formatTime : payment.formattedDate,
-          style: const TextStyle(
-            fontSize: 12.0,
-            color: Colors.grey,
+          style: textTheme.labelSmall!.copyWith(
+            color: colorScheme.secondary,
           ),
           textAlign: TextAlign.end,
         ),

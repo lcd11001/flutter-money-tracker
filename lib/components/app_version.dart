@@ -5,7 +5,10 @@ import 'package:package_info_plus/package_info_plus.dart';
 class AppVersion extends StatelessWidget {
   final Color textColor;
 
-  const AppVersion({super.key, this.textColor = Colors.white});
+  const AppVersion({
+    super.key,
+    this.textColor = Colors.white,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,8 @@ class AppVersion extends StatelessWidget {
   }
 
   Widget builderAppVersion(BuildContext context, PackageInfo packageInfo) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(10),
@@ -34,8 +39,7 @@ class AppVersion extends StatelessWidget {
         children: [
           Text(
             'Version: ${packageInfo.version}(${packageInfo.buildNumber})',
-            style: TextStyle(
-              fontSize: 15,
+            style: textTheme.labelLarge!.copyWith(
               color: textColor,
             ),
           ),

@@ -89,32 +89,47 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(loc.appbarTitle),
+        // backgroundColor: colorScheme.surface,
+        title: Text(
+          loc.appbarTitle,
+          style: textTheme.headlineLarge!.copyWith(
+            color: colorScheme.primary,
+          ),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add),
-            color: Colors.blue,
+            icon: const Icon(
+              Icons.add,
+              size: 40,
+            ),
+            color: colorScheme.tertiary,
             onPressed: _openAddPaymentOverlay,
           ),
         ],
       ),
-      body: Column(
-        children: [
-          const Text('The chart'),
-          Expanded(
-            child: PaymentList(
-              payments: PaymentData.data,
-              onRemovePayment: _removePayment,
+      body: Container(
+        color: colorScheme.surface,
+        child: Column(
+          children: [
+            const Text('The chart'),
+            Expanded(
+              child: PaymentList(
+                payments: PaymentData.data,
+                onRemovePayment: _removePayment,
+              ),
             ),
-          ),
-          Container(
-            color: colorScheme.surface,
-            child: const AppVersion(textColor: Colors.black),
-          ),
-        ],
+            const SizedBox(
+              height: 40,
+            )
+          ],
+        ),
+      ),
+      bottomSheet: AppVersion(
+        textColor: colorScheme.onSurface,
       ),
     );
   }

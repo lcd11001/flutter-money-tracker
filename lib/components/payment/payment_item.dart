@@ -17,8 +17,11 @@ class PaymentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     // use Card to make the ListTile have a shadow
     return Card(
+      color: colorScheme.surface,
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16.0,
@@ -46,13 +49,17 @@ class PaymentItem extends StatelessWidget {
             )
           ],
         ),
-        trailing: const Icon(Icons.arrow_forward_ios),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          color: colorScheme.onSurface,
+        ),
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Icon(
               payment.icon,
               size: 35,
+              color: colorScheme.tertiary,
             ),
           ],
         ),

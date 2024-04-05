@@ -180,7 +180,8 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
                     icon: const Icon(Icons.cancel),
                     label: Text(loc.buttonCancel),
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: colorScheme.error,
+                      backgroundColor: colorScheme.tertiary,
+                      foregroundColor: colorScheme.onTertiary,
                     ),
                   ),
                 ),
@@ -193,7 +194,8 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
                     icon: const Icon(Icons.add),
                     label: Text(loc.buttonAdd),
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: colorScheme.primary,
+                      backgroundColor: colorScheme.primary,
+                      foregroundColor: colorScheme.onPrimary,
                     ),
                   ),
                 ),

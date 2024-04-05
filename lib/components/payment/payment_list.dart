@@ -70,20 +70,20 @@ class PaymentList extends StatelessWidget {
 
   Widget buildGroupSeparator(BuildContext context, PaymentTracking element) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return SizedBox(
       height: 70,
       child: Container(
         margin: const EdgeInsets.only(top: 20.0),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        color: colorScheme.secondaryContainer,
+        color: colorScheme.primary,
         child: Row(
           children: [
             Text(
               element.formattedShortDate,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              style: textTheme.headlineLarge!.copyWith(
+                color: colorScheme.onPrimary,
               ),
             ),
           ],
