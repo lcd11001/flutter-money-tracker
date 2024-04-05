@@ -41,23 +41,23 @@ class ChartBar extends ChartItem {
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Column(
         children: [
-          if (value != null)
-            Text(
-              value,
-              style: textTheme.labelSmall,
-            ),
           Expanded(
             child: SizedBox(
               width: barWidth,
-              child: FractionallySizedBox(
-                heightFactor: fill,
-                alignment: Alignment.bottomCenter,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: colorScheme.primary,
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(4),
+              child: Tooltip(
+                // TODO: make this value above the bar
+                message: value ?? '',
+                triggerMode: TooltipTriggerMode.tap,
+                child: FractionallySizedBox(
+                  heightFactor: fill,
+                  alignment: Alignment.bottomCenter,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: colorScheme.primary,
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(4),
+                      ),
                     ),
                   ),
                 ),
