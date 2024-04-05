@@ -25,10 +25,17 @@ void main() {
       // ),
       theme: ThemeData.light().copyWith(
         colorScheme: MaterialTheme.lightScheme().toColorScheme(),
+        bottomSheetTheme: const BottomSheetThemeData(
+          backgroundColor: Colors.transparent,
+        ),
       ),
       darkTheme: ThemeData.dark().copyWith(
         colorScheme: MaterialTheme.darkScheme().toColorScheme(),
+        bottomSheetTheme: const BottomSheetThemeData(
+          backgroundColor: Colors.transparent,
+        ),
       ),
+      themeMode: ThemeMode.dark,
       home: const MoneyTrackerApp(),
     ),
   );

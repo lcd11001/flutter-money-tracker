@@ -122,9 +122,6 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
                 onRemovePayment: _removePayment,
               ),
             ),
-            const SizedBox(
-              height: 40,
-            )
           ],
         ),
       ),

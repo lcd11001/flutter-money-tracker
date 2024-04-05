@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:money_tracker/models/payment_tracking.dart';
-import 'package:money_tracker/utils/utils.dart';
 
 class PaymentDateTime extends StatelessWidget {
   const PaymentDateTime({
