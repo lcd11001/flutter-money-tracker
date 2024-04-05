@@ -100,6 +100,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Padding(
       // 48.0 is the top padding to avoid the status bar
@@ -118,6 +119,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
                   ? loc.errorTitleRequired
                   : null,
             ),
+            style: textTheme.titleLarge,
             maxLength: 50,
             keyboardType: TextInputType.text,
             onChanged: (_) => _setStateSubmitting(false),
@@ -130,10 +132,14 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
             decoration: InputDecoration(
               labelText: loc.inputAmount,
               prefixText: '${amountFormatter.currencySymbol} ',
+              prefixStyle: textTheme.titleLarge!.copyWith(
+                color: colorScheme.tertiary,
+              ),
               errorText: _isSubmitting && !_validateAmount()
                   ? loc.errorAmountRequired
                   : null,
             ),
+            style: textTheme.titleLarge,
             keyboardType: TextInputType.number,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
@@ -148,11 +154,15 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
           TextField(
             decoration: InputDecoration(
               labelText: loc.inputDate,
-              suffixIcon: const Icon(Icons.calendar_month),
+              suffixIcon: Icon(
+                Icons.calendar_month,
+                color: colorScheme.tertiary,
+              ),
               errorText: _isSubmitting && !_validateDate()
                   ? loc.errorDateInvalid
                   : null,
             ),
+            style: textTheme.titleLarge,
             readOnly: true,
             onTap: _showDatePicker,
             controller: _dateController,

@@ -60,6 +60,8 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
 
   void _showSnackBar(PaymentTracking removedItem) {
     final loc = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     // clear all previous snackbars
     ScaffoldMessenger.of(context).clearSnackBars();
@@ -67,12 +69,16 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(seconds: 3),
+        backgroundColor: colorScheme.surfaceVariant,
         content: Text(
           loc.warningPaymentDeleted(removedItem.title),
-          style: const TextStyle(fontSize: 16.0),
+          style: textTheme.labelLarge!.copyWith(
+            color: colorScheme.onSurfaceVariant,
+          ),
         ),
         action: SnackBarAction(
           label: loc.warningPaymentUndo,
+          textColor: colorScheme.onTertiaryContainer,
           onPressed: () {
             PaymentData.add(removedItem);
 

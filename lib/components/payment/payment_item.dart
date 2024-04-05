@@ -51,7 +51,7 @@ class PaymentItem extends StatelessWidget {
         ),
         trailing: Icon(
           Icons.arrow_forward_ios,
-          color: colorScheme.onSurface,
+          color: colorScheme.secondary,
         ),
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.start,

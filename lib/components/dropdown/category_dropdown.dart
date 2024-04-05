@@ -17,6 +17,9 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
   Category _selectedCategory = Category.others;
 
   get _dropdownMenuEntries {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Category.values.map((category) {
       return DropdownMenuItem<Category>(
         value: category,
@@ -24,10 +27,15 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(categoryIcons[category], size: 16.0),
+            Icon(
+              categoryIcons[category],
+              size: 24.0,
+              color: colorScheme.tertiary,
+            ),
             const SizedBox(width: 10.0),
             Text(
               convertCamelCaseToTitle(category.toString().split('.').last),
+              style: textTheme.titleLarge,
             ),
           ],
         ),
