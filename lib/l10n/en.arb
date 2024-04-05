@@ -62,5 +62,9 @@
         }
     },
 
-    "warningPaymentUndo": "Undo"
+    "warningPaymentUndo": "Undo",
+
+    "drawerTitle": "Settings",
+    "drawerLightTheme": "Light theme",
+    "drawerDarkTheme": "Dark theme"
 }

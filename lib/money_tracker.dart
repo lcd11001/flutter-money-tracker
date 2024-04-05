@@ -106,10 +106,10 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
         width: double.infinity,
         child: Column(
           children: [
-            // Text(
-            //   'The chart',
-            //   style: textTheme.headlineLarge,
-            // ),
+            Text(
+              'The chart',
+              style: textTheme.headlineLarge,
+            ),
             Expanded(
               child: PaymentList(
                 payments: PaymentData.data,
@@ -126,6 +126,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   }
 
   Drawer buildDrawer(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
@@ -140,8 +141,8 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
                 color: colorScheme.surface,
               ),
               child: Text(
-                "loc.drawerTitle",
-                style: textTheme.headlineMedium!.copyWith(
+                loc.drawerTitle,
+                style: textTheme.headlineSmall!.copyWith(
                   color: colorScheme.primary,
                 ),
               ),
@@ -149,7 +150,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
           ),
           ListTile(
             title: Text(
-              "loc.drawerItemPayments",
+              loc.drawerLightTheme,
               style: textTheme.labelLarge!.copyWith(
                 color: colorScheme.secondary,
               ),
@@ -161,7 +162,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
           ),
           ListTile(
             title: Text(
-              "loc.drawerItemSettings",
+              loc.drawerDarkTheme,
               style: textTheme.labelLarge!.copyWith(
                 color: colorScheme.secondary,
               ),
