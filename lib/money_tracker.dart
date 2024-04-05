@@ -6,6 +6,7 @@ import 'package:money_tracker/components/app_version.dart';
 import 'package:money_tracker/components/modal/modal_add_tracker.dart';
 import 'package:money_tracker/components/payment/payment_list.dart';
 import 'package:money_tracker/data/payment_data.dart';
+import 'package:money_tracker/main.dart';
 import 'package:money_tracker/models/payment_tracking.dart';
 
 class MoneyTrackerApp extends StatefulWidget {
@@ -98,30 +99,17 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        // backgroundColor: colorScheme.surface,
-        title: Text(
-          loc.appbarTitle,
-          style: textTheme.headlineLarge!.copyWith(
-            color: colorScheme.primary,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.add,
-              size: 40,
-            ),
-            color: colorScheme.tertiary,
-            onPressed: _openAddPaymentOverlay,
-          ),
-        ],
-      ),
+      appBar: buildAppBar(context),
+      drawer: buildDrawer(context),
       body: Container(
         color: colorScheme.surface,
+        width: double.infinity,
         child: Column(
           children: [
-            const Text('The chart'),
+            // Text(
+            //   'The chart',
+            //   style: textTheme.headlineLarge,
+            // ),
             Expanded(
               child: PaymentList(
                 payments: PaymentData.data,
@@ -133,6 +121,95 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
       ),
       bottomSheet: AppVersion(
         textColor: colorScheme.onSurface,
+      ),
+    );
+  }
+
+  Drawer buildDrawer(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          SizedBox(
+            height: 150,
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: colorScheme.surface,
+              ),
+              child: Text(
+                "loc.drawerTitle",
+                style: textTheme.headlineMedium!.copyWith(
+                  color: colorScheme.primary,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: Text(
+              "loc.drawerItemPayments",
+              style: textTheme.labelLarge!.copyWith(
+                color: colorScheme.secondary,
+              ),
+            ),
+            onTap: () {
+              MainApp.changeThemeLight(context);
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text(
+              "loc.drawerItemSettings",
+              style: textTheme.labelLarge!.copyWith(
+                color: colorScheme.secondary,
+              ),
+            ),
+            onTap: () {
+              MainApp.changeThemeDark(context);
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    return AppBar(
+      // backgroundColor: colorScheme.surface,
+      title: Text(
+        loc.appbarTitle,
+        style: textTheme.headlineLarge!.copyWith(
+          color: colorScheme.primary,
+        ),
+      ),
+      actions: [
+        IconButton(
+          icon: const Icon(
+            Icons.add,
+            size: 40,
+          ),
+          color: colorScheme.tertiary,
+          onPressed: _openAddPaymentOverlay,
+        ),
+      ],
+      leading: Builder(
+        builder: (context) => IconButton(
+          icon: const Icon(
+            Icons.menu,
+            size: 40,
+          ),
+          color: colorScheme.primary,
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
       ),
     );
   }

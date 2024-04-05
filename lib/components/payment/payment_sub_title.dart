@@ -14,9 +14,11 @@ class PaymentSubTitle extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return Text(payment.formattedAmount,
-        style: textTheme.titleMedium!.copyWith(
-          color: colorScheme.secondary,
-        ));
+    return Text(
+      payment.formattedAmount,
+      style: textTheme.titleMedium!.copyWith(
+        color: colorScheme.secondary,
+      ),
+    );
   }
 }

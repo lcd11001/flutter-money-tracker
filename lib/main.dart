@@ -14,7 +14,44 @@ import 'package:money_tracker/theme.dart';
 
 void main() {
   runApp(
-    MaterialApp(
+    const MainApp(),
+  );
+}
+
+// https://stackoverflow.com/questions/60232070/how-to-implement-dark-mode-and-light-mode-in-flutter
+class MainApp extends StatefulWidget {
+  const MainApp({
+    super.key,
+  });
+
+  @override
+  State<StatefulWidget> createState() => _MainApp();
+
+  static _MainApp _of(BuildContext context) {
+    return context.findAncestorStateOfType<_MainApp>()!;
+  }
+
+  static void changeThemeLight(BuildContext context) {
+    _of(context).changeThemeMode(ThemeMode.light);
+  }
+
+  static void changeThemeDark(BuildContext context) {
+    _of(context).changeThemeMode(ThemeMode.dark);
+  }
+}
+
+class _MainApp extends State<MainApp> {
+  ThemeMode _themeMode = ThemeMode.system;
+
+  void changeThemeMode(ThemeMode themeMode) {
+    setState(() {
+      _themeMode = themeMode;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       // theme: ThemeData.light(useMaterial3: true).copyWith(
@@ -35,8 +72,8 @@ void main() {
           backgroundColor: Colors.transparent,
         ),
       ),
-      themeMode: ThemeMode.light,
+      themeMode: _themeMode,
       home: const MoneyTrackerApp(),
-    ),
-  );
+    );
+  }
 }

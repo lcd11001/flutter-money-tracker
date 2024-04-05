@@ -72,11 +72,11 @@ class PaymentList extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return SizedBox(
-      height: 70,
+    return Container(
+      padding: const EdgeInsets.only(top: 20.0),
+      color: colorScheme.surface,
       child: Container(
-        margin: const EdgeInsets.only(top: 20.0),
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         color: colorScheme.primary,
         child: Row(
           children: [
@@ -98,9 +98,10 @@ class PaymentList extends StatelessWidget {
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
           onRemovePayment(element.id);
-          // Utils.showSnackBar(context, 'Payment removed');
         }
       },
+      // restrict swipe direction
+      direction: DismissDirection.endToStart,
       child: PaymentItem(
         payment: element,
         showOnlyTime: true,
