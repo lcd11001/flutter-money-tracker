@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:money_tracker/components/app_version.dart';
 import 'package:money_tracker/components/chart/chart_view.dart';
-
 import 'package:money_tracker/components/modal/modal_add_tracker.dart';
 import 'package:money_tracker/components/payment/payment_list.dart';
 import 'package:money_tracker/data/payment_data.dart';
@@ -109,7 +108,8 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
         width: double.infinity,
         child: Column(
           children: [
-            buildChartViewByCategory(context),
+            // buildChartViewByCategory(context),
+            buildChartViewByLastDays(context, days: 7),
             Expanded(
               child: PaymentList(
                 payments: PaymentData.data,
@@ -215,7 +215,51 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     );
   }
 
-  buildChartViewByCategory(BuildContext context) {
+  Widget buildChartViewByLastDays(BuildContext context, {int days = 7}) {
+    double height = MediaQuery.of(context).size.height * 0.3;
+
+    final now = DateTime.now();
+    final lastDays = List.generate(
+      days,
+      (index) => now.subtract(Duration(days: index)),
+    );
+
+    List<PaymentBucket> buckets = List<PaymentBucket>.from(
+      lastDays.map(
+        (date) => PaymentBucket.forDate(PaymentData.data, date),
+      ),
+    );
+
+    final maxAmount = buckets.fold<double>(
+      0,
+      (max, bucket) => bucket.totalAmount > max ? bucket.totalAmount : max,
+    );
+
+    return ChartView(
+        data: buckets,
+        chartBuilder: (ctx, bucket) =>
+            chartBuilderByLastDays(ctx, bucket, maxAmount),
+        height: height,
+        title: "The chart by last $days days");
+  }
+
+  chartBuilderByLastDays(
+    BuildContext ctx,
+    PaymentBucket bucket,
+    double maxAmount,
+  ) {
+    debugPrint("builder bucket: ${bucket.category} - ${bucket.totalAmount}");
+
+    return ChartBar(
+      fill: bucket.totalAmount / maxAmount,
+      // icon: Icons.calendar_today,
+      title: bucket.formattedDate,
+      value: bucket.formattedTotalAmount,
+      width: 40,
+    );
+  }
+
+  Widget buildChartViewByCategory(BuildContext context) {
     double height = MediaQuery.of(context).size.height * 0.3;
 
     List<PaymentBucket> buckets = List<PaymentBucket>.from(
