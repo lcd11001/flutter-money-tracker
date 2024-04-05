@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:money_tracker/components/app_version.dart';
+import 'package:money_tracker/components/chart/chart_view.dart';
 
 import 'package:money_tracker/components/modal/modal_add_tracker.dart';
 import 'package:money_tracker/components/payment/payment_list.dart';
 import 'package:money_tracker/data/payment_data.dart';
 import 'package:money_tracker/main.dart';
+import 'package:money_tracker/models/payment_bucket.dart';
+import 'package:money_tracker/models/payment_category.dart';
 import 'package:money_tracker/models/payment_tracking.dart';
+import 'package:money_tracker/components/chart/chart_bar.dart';
 
 class MoneyTrackerApp extends StatefulWidget {
   const MoneyTrackerApp({super.key});
@@ -94,9 +98,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: buildAppBar(context),
@@ -106,10 +108,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
         width: double.infinity,
         child: Column(
           children: [
-            Text(
-              'The chart',
-              style: textTheme.headlineLarge,
-            ),
+            buildChartViewByCategory(context),
             Expanded(
               child: PaymentList(
                 payments: PaymentData.data,
@@ -212,6 +211,30 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
           },
         ),
       ),
+    );
+  }
+
+  buildChartViewByCategory(BuildContext context) {
+    double height = MediaQuery.of(context).size.height * 0.3;
+    List<PaymentBucket> buckets = List<PaymentBucket>.from(
+      Category.values.map(
+        (category) => PaymentBucket.forCategory(PaymentData.data, category),
+      ),
+    );
+
+    return ChartView(
+        data: buckets,
+        chartBuilder: chartBuilderByCategory,
+        height: height,
+        title: "The chart by category");
+  }
+
+  Widget chartBuilderByCategory(BuildContext context, PaymentBucket bucket) {
+    debugPrint(
+        "builder bucket: ${bucket.category} - totalAmount: ${bucket.totalAmount}");
+
+    return ChartBar(
+      fill: bucket.totalAmount / 1000.0,
     );
   }
 }
