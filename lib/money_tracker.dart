@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:money_tracker/components/app_version.dart';
@@ -115,8 +113,8 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
         child: screenWidth < 600
             ? Column(
                 children: [
-                  buildChartViewByCategory(context),
-                  // buildChartViewByLastDays(context, days: 7),
+                  // buildChartViewByCategory(context),
+                  buildChartViewByLastDays(context, days: 7),
                   Expanded(
                     child: PaymentList(
                       payments: PaymentData.data,
@@ -128,8 +126,8 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
             : Row(
                 children: [
                   Expanded(
-                    child: buildChartViewByCategory(context),
-                    // child: buildChartViewByLastDays(context, days: 7),
+                    // child: buildChartViewByCategory(context),
+                    child: buildChartViewByLastDays(context, days: 7),
                   ),
                   Expanded(
                     child: PaymentList(

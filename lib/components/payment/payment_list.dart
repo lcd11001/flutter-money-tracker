@@ -69,21 +69,24 @@ class PaymentList extends StatelessWidget {
       itemBuilder: buildListItem,
     );
     */
-    return StickyGroupedListView<PaymentTracking, DateTime>(
-      elements: payments,
-      order: StickyGroupedListOrder.ASC,
-      // Group
-      groupBy: (PaymentTracking element) => DateTime(
-        element.date.year,
-        element.date.month,
-        element.date.day,
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: StickyGroupedListView<PaymentTracking, DateTime>(
+        elements: payments,
+        order: StickyGroupedListOrder.ASC,
+        // Group
+        groupBy: (PaymentTracking element) => DateTime(
+          element.date.year,
+          element.date.month,
+          element.date.day,
+        ),
+        groupComparator: (date1, date2) => date2.compareTo(date1),
+        groupSeparatorBuilder: (element) =>
+            buildGroupSeparator(context, element, payments),
+        // Item
+        itemBuilder: buildItem,
+        itemComparator: (pay1, pay2) => pay1.date.compareTo(pay2.date),
       ),
-      groupComparator: (date1, date2) => date2.compareTo(date1),
-      groupSeparatorBuilder: (element) =>
-          buildGroupSeparator(context, element, payments),
-      // Item
-      itemBuilder: buildItem,
-      itemComparator: (pay1, pay2) => pay1.date.compareTo(pay2.date),
     );
   }
 
@@ -96,29 +99,25 @@ class PaymentList extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
-      padding: const EdgeInsets.only(top: 20.0),
-      color: colorScheme.surface,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        color: colorScheme.primary,
-        child: Row(
-          children: [
-            Text(
-              element.formattedShortDate,
-              style: textTheme.headlineMedium!.copyWith(
-                color: colorScheme.onPrimary,
-              ),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      margin: const EdgeInsets.only(top: 16.0),
+      color: colorScheme.primary,
+      child: Row(
+        children: [
+          Text(
+            element.formattedShortDate,
+            style: textTheme.headlineMedium!.copyWith(
+              color: colorScheme.onPrimary,
             ),
-            const Spacer(),
-            Text(
-              PaymentBucket.forDate(payments, element.date)
-                  .formattedTotalAmount,
-              style: textTheme.headlineSmall!.copyWith(
-                color: colorScheme.onPrimary,
-              ),
+          ),
+          const Spacer(),
+          Text(
+            PaymentBucket.forDate(payments, element.date).formattedTotalAmount,
+            style: textTheme.headlineSmall!.copyWith(
+              color: colorScheme.onPrimary,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
