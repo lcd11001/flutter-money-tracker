@@ -32,11 +32,28 @@ class PaymentList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
 
     if (payments.isEmpty) {
       return Container(
         padding: const EdgeInsets.all(32.0),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: colorScheme.onSurfaceVariant,
+              width: 2,
+            ),
+          ),
+          gradient: LinearGradient(
+            colors: [
+              colorScheme.surface,
+              colorScheme.surfaceVariant,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Center(
           child: Text(
             loc.warningNoPaymentData,

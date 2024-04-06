@@ -22,6 +22,8 @@ class ChartView<T> extends StatefulWidget {
 class _ChartViewState<T> extends State<ChartView<T>> {
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.of(context);
+    final screenWidth = media.size.width;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
@@ -29,12 +31,19 @@ class _ChartViewState<T> extends State<ChartView<T>> {
       width: double.infinity,
       height: widget.height,
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: colorScheme.onSurfaceVariant,
-            width: 2,
-          ),
-        ),
+        border: screenWidth < 600
+            ? Border(
+                bottom: BorderSide(
+                  color: colorScheme.onSurfaceVariant,
+                  width: 2,
+                ),
+              )
+            : Border(
+                right: BorderSide(
+                  color: colorScheme.onSurfaceVariant,
+                  width: 2,
+                ),
+              ),
         gradient: LinearGradient(
           colors: [
             colorScheme.surface,

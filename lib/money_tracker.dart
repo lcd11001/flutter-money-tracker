@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:money_tracker/components/app_version.dart';
@@ -98,6 +100,10 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
 
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.of(context);
+    debugPrint('Size: ${media.size.width} x ${media.size.height}');
+    final screenWidth = media.size.width;
+
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -106,18 +112,33 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
       body: Container(
         color: colorScheme.surface,
         width: double.infinity,
-        child: Column(
-          children: [
-            // buildChartViewByCategory(context),
-            buildChartViewByLastDays(context, days: 7),
-            Expanded(
-              child: PaymentList(
-                payments: PaymentData.data,
-                onRemovePayment: _removePayment,
+        child: screenWidth < 600
+            ? Column(
+                children: [
+                  buildChartViewByCategory(context),
+                  // buildChartViewByLastDays(context, days: 7),
+                  Expanded(
+                    child: PaymentList(
+                      payments: PaymentData.data,
+                      onRemovePayment: _removePayment,
+                    ),
+                  ),
+                ],
+              )
+            : Row(
+                children: [
+                  Expanded(
+                    child: buildChartViewByCategory(context),
+                    // child: buildChartViewByLastDays(context, days: 7),
+                  ),
+                  Expanded(
+                    child: PaymentList(
+                      payments: PaymentData.data,
+                      onRemovePayment: _removePayment,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
       bottomSheet: AppVersion(
         textColor: colorScheme.onSurface,
@@ -216,7 +237,13 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   }
 
   Widget buildChartViewByLastDays(BuildContext context, {int days = 7}) {
-    double height = MediaQuery.of(context).size.height * 0.3;
+    final media = MediaQuery.of(context);
+    final screenWidth = media.size.width;
+    final screenHeight = media.size.height;
+    double height = screenWidth < 600
+        ? MediaQuery.of(context).size.height * 0.3
+        : screenHeight;
+
     final loc = AppLocalizations.of(context)!;
 
     final now = DateTime.now();
@@ -255,7 +282,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     // debugPrint("builder bucket: ${bucket.category} - ${bucket.totalAmount}");
 
     return ChartBar(
-      fill: bucket.totalAmount / maxAmount,
+      fill: maxAmount > 0 ? bucket.totalAmount / maxAmount : 0,
       // icon: Icons.calendar_today,
       title: bucket.formattedDate,
       value: bucket.formattedTotalAmount,
@@ -264,8 +291,14 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   }
 
   Widget buildChartViewByCategory(BuildContext context) {
+    final media = MediaQuery.of(context);
+    final screenWidth = media.size.width;
+    final screenHeight = media.size.height;
+    double height = screenWidth < 600
+        ? MediaQuery.of(context).size.height * 0.3
+        : screenHeight;
+
     final loc = AppLocalizations.of(context)!;
-    double height = MediaQuery.of(context).size.height * 0.3;
 
     List<PaymentBucket> buckets = List<PaymentBucket>.from(
       Category.values.map(
@@ -297,7 +330,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     final categoryName = bucket.category.toString().split('.').last;
 
     return ChartBar(
-      fill: bucket.totalAmount / maxAmount,
+      fill: maxAmount > 0 ? bucket.totalAmount / maxAmount : 0,
       icon: categoryIcons[bucket.category]!,
       title: convertCamelCaseToTitle(categoryName),
       value: bucket.formattedTotalAmount,
