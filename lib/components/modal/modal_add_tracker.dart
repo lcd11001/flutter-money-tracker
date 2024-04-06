@@ -9,7 +9,12 @@ import 'package:money_tracker/utils/utils.dart';
 import 'package:money_tracker/utils/thousands_formatter.dart';
 
 class ModalAddTracker extends StatefulWidget {
-  const ModalAddTracker({super.key, required this.onAddPayment});
+  final ScrollController scrollController;
+  const ModalAddTracker({
+    super.key,
+    required this.onAddPayment,
+    required this.scrollController,
+  });
 
   final Callback<PaymentTracking> onAddPayment;
 
@@ -108,109 +113,112 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
         16.0,
         16.0,
       ),
-      child: Column(
-        children: [
-          TextField(
-            decoration: InputDecoration(
-              labelText: loc.inputTitle,
-              errorText: _isSubmitting && !_validateTitle()
-                  ? loc.errorTitleRequired
-                  : null,
-            ),
-            style: textTheme.titleLarge,
-            maxLength: 50,
-            keyboardType: TextInputType.text,
-            onChanged: (_) => _setStateSubmitting(false),
-            controller: _titleController,
-          ),
-          // const SizedBox(
-          //   height: 0.0,
-          // ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: loc.inputAmount,
-              prefixText: '${amountFormatter.currencySymbol} ',
-              prefixStyle: textTheme.titleLarge!.copyWith(
-                color: colorScheme.tertiary,
+      child: SingleChildScrollView(
+        controller: widget.scrollController,
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                labelText: loc.inputTitle,
+                errorText: _isSubmitting && !_validateTitle()
+                    ? loc.errorTitleRequired
+                    : null,
               ),
-              errorText: _isSubmitting && !_validateAmount()
-                  ? loc.errorAmountRequired
-                  : null,
+              style: textTheme.titleLarge,
+              maxLength: 50,
+              keyboardType: TextInputType.text,
+              onChanged: (_) => _setStateSubmitting(false),
+              controller: _titleController,
             ),
-            style: textTheme.titleLarge,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-              ThousandsFormatter(),
-            ],
-            onChanged: (_) => _setStateSubmitting(false),
-            controller: _amountController,
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: loc.inputDate,
-              suffixIcon: Icon(
-                Icons.calendar_month,
-                color: colorScheme.tertiary,
+            // const SizedBox(
+            //   height: 0.0,
+            // ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: loc.inputAmount,
+                prefixText: '${amountFormatter.currencySymbol} ',
+                prefixStyle: textTheme.titleLarge!.copyWith(
+                  color: colorScheme.tertiary,
+                ),
+                errorText: _isSubmitting && !_validateAmount()
+                    ? loc.errorAmountRequired
+                    : null,
               ),
-              errorText: _isSubmitting && !_validateDate()
-                  ? loc.errorDateInvalid
-                  : null,
-            ),
-            style: textTheme.titleLarge,
-            readOnly: true,
-            onTap: _showDatePicker,
-            controller: _dateController,
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          CategoryDropdown(
-            onCategorySelected: _onCategorySelected,
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          const SizedBox(
-            height: 32.0,
-          ),
-          IntrinsicWidth(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: _closeModal,
-                    icon: const Icon(Icons.cancel),
-                    label: Text(loc.buttonCancel),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: colorScheme.tertiary,
-                      foregroundColor: colorScheme.onTertiary,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 16.0,
-                ),
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: _submitPayment,
-                    icon: const Icon(Icons.add),
-                    label: Text(loc.buttonAdd),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: colorScheme.primary,
-                      foregroundColor: colorScheme.onPrimary,
-                    ),
-                  ),
-                ),
+              style: textTheme.titleLarge,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                ThousandsFormatter(),
               ],
+              onChanged: (_) => _setStateSubmitting(false),
+              controller: _amountController,
             ),
-          ),
-        ],
+            const SizedBox(
+              height: 16.0,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: loc.inputDate,
+                suffixIcon: Icon(
+                  Icons.calendar_month,
+                  color: colorScheme.tertiary,
+                ),
+                errorText: _isSubmitting && !_validateDate()
+                    ? loc.errorDateInvalid
+                    : null,
+              ),
+              style: textTheme.titleLarge,
+              readOnly: true,
+              onTap: _showDatePicker,
+              controller: _dateController,
+            ),
+            const SizedBox(
+              height: 16.0,
+            ),
+            CategoryDropdown(
+              onCategorySelected: _onCategorySelected,
+            ),
+            const SizedBox(
+              height: 16.0,
+            ),
+            const SizedBox(
+              height: 32.0,
+            ),
+            IntrinsicWidth(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: _closeModal,
+                      icon: const Icon(Icons.cancel),
+                      label: Text(loc.buttonCancel),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: colorScheme.tertiary,
+                        foregroundColor: colorScheme.onTertiary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16.0,
+                  ),
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: _submitPayment,
+                      icon: const Icon(Icons.add),
+                      label: Text(loc.buttonAdd),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: colorScheme.primary,
+                        foregroundColor: colorScheme.onPrimary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

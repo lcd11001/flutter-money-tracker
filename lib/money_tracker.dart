@@ -39,8 +39,14 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
       // make the modal full screen
       isScrollControlled: true,
       backgroundColor: colorScheme.surface,
-      builder: (ctx) => ModalAddTracker(
-        onAddPayment: _addPayment,
+      builder: (ctx) => DraggableScrollableSheet(
+        expand: true,
+        builder: (ctx2, scrollController) {
+          return ModalAddTracker(
+            scrollController: scrollController,
+            onAddPayment: _addPayment,
+          );
+        },
       ),
     );
   }
