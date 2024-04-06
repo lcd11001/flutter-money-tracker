@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:money_tracker/money_tracker.dart';
@@ -13,9 +14,14 @@ import 'package:money_tracker/theme.dart';
 // );
 
 void main() {
-  runApp(
-    const MainApp(),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((value) {
+    runApp(
+      const MainApp(),
+    );
+  });
 }
 
 // https://stackoverflow.com/questions/60232070/how-to-implement-dark-mode-and-light-mode-in-flutter
