@@ -32,6 +32,8 @@ class PaymentList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.of(context);
+    final screenWidth = media.size.width;
     final colorScheme = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
 
@@ -70,7 +72,9 @@ class PaymentList extends StatelessWidget {
     );
     */
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+      margin: EdgeInsets.only(
+        right: screenWidth < 600 ? 0 : 16.0,
+      ),
       child: StickyGroupedListView<PaymentTracking, DateTime>(
         elements: payments,
         order: StickyGroupedListOrder.ASC,
@@ -101,7 +105,7 @@ class PaymentList extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      margin: const EdgeInsets.only(top: 16.0),
+      margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
       color: colorScheme.primary,
       child: Row(
         children: [

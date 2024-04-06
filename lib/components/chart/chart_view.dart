@@ -30,7 +30,10 @@ class _ChartViewState<T> extends State<ChartView<T>> {
     return Container(
       width: double.infinity,
       height: widget.height,
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+      margin: EdgeInsets.symmetric(
+        horizontal: 16.0,
+        vertical: screenWidth < 600 ? 0.0 : 16.0,
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: LinearGradient(
