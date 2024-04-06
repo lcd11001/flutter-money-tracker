@@ -74,6 +74,7 @@ class PaymentList extends StatelessWidget {
       child: StickyGroupedListView<PaymentTracking, DateTime>(
         elements: payments,
         order: StickyGroupedListOrder.ASC,
+        stickyHeaderBackgroundColor: colorScheme.surface,
         // Group
         groupBy: (PaymentTracking element) => DateTime(
           element.date.year,
