@@ -59,7 +59,6 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
           value: _selectedCategory,
           items: _dropdownMenuEntries,
           onChanged: (value) {
-            debugPrint(value.toString());
             if (value != null) {
               setState(() {
                 _selectedCategory = value;

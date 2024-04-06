@@ -30,7 +30,7 @@ class ChartBar extends ChartItem {
     final textTheme = Theme.of(context).textTheme;
 
     final obj = item as Map<String, dynamic>;
-    debugPrint('bar item: ${obj.toString()}');
+    // debugPrint('bar item: ${obj.toString()}');
 
     final fill = obj['fill'] as double;
     final icon = obj['icon'] as IconData?;

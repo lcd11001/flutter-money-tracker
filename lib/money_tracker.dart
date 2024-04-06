@@ -217,6 +217,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
 
   Widget buildChartViewByLastDays(BuildContext context, {int days = 7}) {
     double height = MediaQuery.of(context).size.height * 0.3;
+    final loc = AppLocalizations.of(context)!;
 
     final now = DateTime.now();
     final lastDays = List.generate(
@@ -230,17 +231,20 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
       ),
     );
 
+    buckets.sort((a, b) => a.date.compareTo(b.date));
+
     final maxAmount = buckets.fold<double>(
       0,
       (max, bucket) => bucket.totalAmount > max ? bucket.totalAmount : max,
     );
 
     return ChartView(
-        data: buckets,
-        chartBuilder: (ctx, bucket) =>
-            chartBuilderByLastDays(ctx, bucket, maxAmount),
-        height: height,
-        title: "The chart by last $days days");
+      data: buckets,
+      chartBuilder: (ctx, bucket) =>
+          chartBuilderByLastDays(ctx, bucket, maxAmount),
+      height: height,
+      title: loc.chartTitleByLastDays(days),
+    );
   }
 
   chartBuilderByLastDays(
@@ -248,7 +252,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     PaymentBucket bucket,
     double maxAmount,
   ) {
-    debugPrint("builder bucket: ${bucket.category} - ${bucket.totalAmount}");
+    // debugPrint("builder bucket: ${bucket.category} - ${bucket.totalAmount}");
 
     return ChartBar(
       fill: bucket.totalAmount / maxAmount,
@@ -260,6 +264,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   }
 
   Widget buildChartViewByCategory(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     double height = MediaQuery.of(context).size.height * 0.3;
 
     List<PaymentBucket> buckets = List<PaymentBucket>.from(
@@ -274,11 +279,12 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     );
 
     return ChartView(
-        data: buckets,
-        chartBuilder: (ctx, bucket) =>
-            chartBuilderByCategory(ctx, bucket, maxAmount),
-        height: height,
-        title: "The chart by category");
+      data: buckets,
+      chartBuilder: (ctx, bucket) =>
+          chartBuilderByCategory(ctx, bucket, maxAmount),
+      height: height,
+      title: loc.chartTitleByCategory,
+    );
   }
 
   Widget chartBuilderByCategory(
@@ -286,7 +292,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     PaymentBucket bucket,
     double maxAmount,
   ) {
-    debugPrint("builder bucket: ${bucket.category} - ${bucket.totalAmount}");
+    // debugPrint("builder bucket: ${bucket.category} - ${bucket.totalAmount}");
 
     final categoryName = bucket.category.toString().split('.').last;
 

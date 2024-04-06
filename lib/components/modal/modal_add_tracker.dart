@@ -78,8 +78,6 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
     );
 
     if (finalDate != null) {
-      debugPrint(now.toString());
-      debugPrint(finalDate.toString());
       setState(() {
         _selectedDate = DateTime(
           finalDate.year,
