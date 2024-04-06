@@ -38,9 +38,12 @@ class ChartBar extends ChartItem {
     final value = obj['value'] as String?;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         children: [
+          const SizedBox(
+            height: 16,
+          ),
           Expanded(
             child: SizedBox(
               width: barWidth,

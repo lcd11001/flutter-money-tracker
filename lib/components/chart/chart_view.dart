@@ -28,7 +28,22 @@ class _ChartViewState<T> extends State<ChartView<T>> {
     return Container(
       width: double.infinity,
       height: widget.height,
-      color: colorScheme.surface,
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: colorScheme.onSurfaceVariant,
+            width: 2,
+          ),
+        ),
+        gradient: LinearGradient(
+          colors: [
+            colorScheme.surface,
+            colorScheme.surfaceVariant,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
       child: Column(
         children: [
           Expanded(
