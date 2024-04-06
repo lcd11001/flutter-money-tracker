@@ -69,7 +69,7 @@
     "drawerDarkTheme": "Dark theme",
 
     "chartTitleByCategory": "Expenses by category",
-    "chartTitleByLastDays": "Expenses by {value} days",
+    "chartTitleByLastDays": "Expenses by last {value} days",
     "@chartTitleByLastDays": {
         "placeholders": {
             "value": {
