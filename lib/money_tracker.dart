@@ -22,14 +22,14 @@ class MoneyTrackerApp extends StatefulWidget {
   State<StatefulWidget> createState() => _MoneyTrackerAppState();
 }
 
-enum chartType {
+enum ChartType {
   byCategory,
   byLastDays,
 }
 
 class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   int paymentsLength = 0;
-  chartType currentChartType = chartType.byLastDays;
+  ChartType currentChartType = ChartType.byLastDays;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     paymentsLength = PaymentData.data.length;
   }
 
-  void _changeChartType({required chartType type}) {
+  void _changeChartType({required ChartType type}) {
     setState(() {
       currentChartType = type;
     });
@@ -127,7 +127,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
         child: screenWidth < 600
             ? Column(
                 children: [
-                  chartType.byCategory == currentChartType
+                  ChartType.byCategory == currentChartType
                       ? buildChartViewByCategory(context)
                       : buildChartViewByLastDays(context, days: 7),
                   Expanded(
@@ -141,7 +141,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
             : Row(
                 children: [
                   Expanded(
-                    child: chartType.byCategory == currentChartType
+                    child: ChartType.byCategory == currentChartType
                         ? buildChartViewByCategory(context)
                         : buildChartViewByLastDays(context, days: 7),
                   ),
@@ -164,13 +164,14 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
-            height: 150,
+            height: 130,
             child: DrawerHeader(
               decoration: BoxDecoration(
                 color: colorScheme.surface,
@@ -179,6 +180,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
                 loc.drawerTitle,
                 style: textTheme.headlineSmall!.copyWith(
                   color: colorScheme.primary,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -189,6 +191,14 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
               style: textTheme.labelLarge!.copyWith(
                 color: colorScheme.secondary,
               ),
+            ),
+            leading: Icon(
+              Icons.light_mode,
+              color: colorScheme.secondary,
+            ),
+            trailing: Icon(
+              isDarkMode ? null : Icons.check,
+              color: colorScheme.secondary,
             ),
             onTap: () {
               MainApp.changeThemeLight(context);
@@ -201,6 +211,14 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
               style: textTheme.labelLarge!.copyWith(
                 color: colorScheme.secondary,
               ),
+            ),
+            leading: Icon(
+              Icons.dark_mode,
+              color: colorScheme.secondary,
+            ),
+            trailing: Icon(
+              isDarkMode ? Icons.check : null,
+              color: colorScheme.secondary,
             ),
             onTap: () {
               MainApp.changeThemeDark(context);
@@ -215,8 +233,16 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
                 color: colorScheme.secondary,
               ),
             ),
+            leading: Icon(
+              Icons.category,
+              color: colorScheme.secondary,
+            ),
+            trailing: Icon(
+              currentChartType == ChartType.byCategory ? Icons.check : null,
+              color: colorScheme.secondary,
+            ),
             onTap: () {
-              _changeChartType(type: chartType.byCategory);
+              _changeChartType(type: ChartType.byCategory);
               Navigator.pop(context);
             },
           ),
@@ -227,8 +253,16 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
                 color: colorScheme.secondary,
               ),
             ),
+            leading: Icon(
+              Icons.calendar_month,
+              color: colorScheme.secondary,
+            ),
+            trailing: Icon(
+              currentChartType == ChartType.byLastDays ? Icons.check : null,
+              color: colorScheme.secondary,
+            ),
             onTap: () {
-              _changeChartType(type: chartType.byLastDays);
+              _changeChartType(type: ChartType.byLastDays);
               Navigator.pop(context);
             },
           ),
