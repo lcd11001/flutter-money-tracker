@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:money_tracker/components/app_version.dart';
 import 'package:money_tracker/components/chart/chart_view.dart';
+import 'package:money_tracker/components/chart/sf_chart_view.dart';
 import 'package:money_tracker/components/modal/modal_add_tracker.dart';
 import 'package:money_tracker/components/payment/payment_list.dart';
 import 'package:money_tracker/data/payment_data.dart';
@@ -263,6 +264,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
       (max, bucket) => bucket.totalAmount > max ? bucket.totalAmount : max,
     );
 
+    /*
     return ChartView(
       data: buckets,
       chartBuilder: (ctx, bucket) =>
@@ -270,6 +272,23 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
       height: height,
       title: loc.chartTitleByLastDays(days),
     );
+    */
+    return SfChartView<PaymentBucket, String>(
+      data: buckets,
+      xValueMapper: xValueMapperByDate,
+      yValueMapper: yValueMapper,
+      height: height,
+      title: loc.chartTitleByLastDays(days),
+    );
+  }
+
+  String xValueMapperByDate(
+      BuildContext context, PaymentBucket bucket, int index) {
+    return bucket.formattedDate;
+  }
+
+  num yValueMapper(BuildContext context, PaymentBucket bucket, int index) {
+    return bucket.totalAmount;
   }
 
   chartBuilderByLastDays(
