@@ -67,6 +67,16 @@
     "drawerTitle": "Settings",
     "drawerLightTheme": "Light theme",
     "drawerDarkTheme": "Dark theme",
+    "drawerChartByCategory": "Chart by category",
+    "drawerChartByLastDays": "Chart by last {value} days",
+    "@drawerChartByLastDays": {
+        "placeholders": {
+            "value": {
+                "type": "int",
+                "description": "The number of days"
+            }
+        }
+    },
 
     "chartTitleByCategory": "Expenses by category",
     "chartTitleByLastDays": "Expenses by last {value} days",

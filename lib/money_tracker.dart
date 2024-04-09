@@ -22,14 +22,26 @@ class MoneyTrackerApp extends StatefulWidget {
   State<StatefulWidget> createState() => _MoneyTrackerAppState();
 }
 
+enum chartType {
+  byCategory,
+  byLastDays,
+}
+
 class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   int paymentsLength = 0;
+  chartType currentChartType = chartType.byLastDays;
 
   @override
   void initState() {
     super.initState();
     PaymentData.init();
     paymentsLength = PaymentData.data.length;
+  }
+
+  void _changeChartType({required chartType type}) {
+    setState(() {
+      currentChartType = type;
+    });
   }
 
   void _openAddPaymentOverlay() {
@@ -115,8 +127,9 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
         child: screenWidth < 600
             ? Column(
                 children: [
-                  // buildChartViewByCategory(context),
-                  buildChartViewByLastDays(context, days: 7),
+                  chartType.byCategory == currentChartType
+                      ? buildChartViewByCategory(context)
+                      : buildChartViewByLastDays(context, days: 7),
                   Expanded(
                     child: PaymentList(
                       payments: PaymentData.data,
@@ -128,8 +141,9 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
             : Row(
                 children: [
                   Expanded(
-                    // child: buildChartViewByCategory(context),
-                    child: buildChartViewByLastDays(context, days: 7),
+                    child: chartType.byCategory == currentChartType
+                        ? buildChartViewByCategory(context)
+                        : buildChartViewByLastDays(context, days: 7),
                   ),
                   Expanded(
                     child: PaymentList(
@@ -190,6 +204,31 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
             ),
             onTap: () {
               MainApp.changeThemeDark(context);
+              Navigator.pop(context);
+            },
+          ),
+          const Divider(),
+          ListTile(
+            title: Text(
+              loc.drawerChartByCategory,
+              style: textTheme.labelLarge!.copyWith(
+                color: colorScheme.secondary,
+              ),
+            ),
+            onTap: () {
+              _changeChartType(type: chartType.byCategory);
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text(
+              loc.drawerChartByLastDays(7),
+              style: textTheme.labelLarge!.copyWith(
+                color: colorScheme.secondary,
+              ),
+            ),
+            onTap: () {
+              _changeChartType(type: chartType.byLastDays);
               Navigator.pop(context);
             },
           ),
