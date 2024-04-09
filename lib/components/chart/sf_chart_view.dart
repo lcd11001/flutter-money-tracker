@@ -51,7 +51,11 @@ class _SfChartViewState<T, D> extends State<SfChartView<T, D>> {
         children: [
           Expanded(
             child: SfCartesianChart(
-              primaryXAxis: const CategoryAxis(),
+              primaryXAxis: CategoryAxis(
+                title: AxisTitle(
+                  text: widget.title,
+                ),
+              ),
               series: <CartesianSeries<T, D>>[
                 ColumnSeries<T, D>(
                   dataSource: widget.data,
@@ -59,12 +63,15 @@ class _SfChartViewState<T, D> extends State<SfChartView<T, D>> {
                       widget.xValueMapper(context, data, index),
                   yValueMapper: (data, index) =>
                       widget.yValueMapper(context, data, index),
-                  name: widget.title,
+                  dataLabelSettings: const DataLabelSettings(
+                    isVisible: true,
+                    labelAlignment: ChartDataLabelAlignment.outer,
+                  ),
+                  pointColorMapper: (data, index) => colorScheme.primary,
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 16.0),
         ],
       ),
     );
