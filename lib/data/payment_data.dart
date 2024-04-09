@@ -74,7 +74,7 @@ class PaymentData {
       ),
       PaymentTracking(
         title: 'Rent',
-        amount: 1000.0,
+        amount: 500.0,
         date: DateTime.now().subtract(
           Duration(
             days: random.nextInt(10),
@@ -122,7 +122,7 @@ class PaymentData {
       ),
       PaymentTracking(
         title: 'Laptop',
-        amount: 1000.0,
+        amount: 500.0,
         date: DateTime.now().subtract(
           Duration(
             days: random.nextInt(10),
@@ -194,7 +194,7 @@ class PaymentData {
       ),
       PaymentTracking(
         title: 'Investment',
-        amount: 1000.0,
+        amount: 500.0,
         date: DateTime.now().subtract(
           Duration(
             days: random.nextInt(10),
