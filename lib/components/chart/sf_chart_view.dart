@@ -7,6 +7,9 @@ class SfChartView<T, D> extends StatefulWidget {
   final num Function(BuildContext, T, int) yValueMapper;
   final double height;
   final String title;
+  final double animationDuration;
+  final AxisLabelIntersectAction labelIntersectAction;
+  final int maximumLabels;
 
   const SfChartView({
     super.key,
@@ -15,6 +18,9 @@ class SfChartView<T, D> extends StatefulWidget {
     required this.yValueMapper,
     required this.height,
     required this.title,
+    this.animationDuration = 500,
+    this.labelIntersectAction = AxisLabelIntersectAction.rotate45,
+    this.maximumLabels = 5,
   });
 
   @override
@@ -55,6 +61,8 @@ class _SfChartViewState<T, D> extends State<SfChartView<T, D>> {
                 title: AxisTitle(
                   text: widget.title,
                 ),
+                labelIntersectAction: widget.labelIntersectAction,
+                maximumLabels: widget.maximumLabels,
               ),
               series: <CartesianSeries<T, D>>[
                 ColumnSeries<T, D>(
@@ -68,6 +76,7 @@ class _SfChartViewState<T, D> extends State<SfChartView<T, D>> {
                     labelAlignment: ChartDataLabelAlignment.outer,
                   ),
                   pointColorMapper: (data, index) => colorScheme.primary,
+                  animationDuration: widget.animationDuration,
                 ),
               ],
             ),

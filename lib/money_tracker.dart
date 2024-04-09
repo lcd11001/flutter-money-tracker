@@ -13,6 +13,7 @@ import 'package:money_tracker/models/payment_category.dart';
 import 'package:money_tracker/models/payment_tracking.dart';
 import 'package:money_tracker/components/chart/chart_bar.dart';
 import 'package:money_tracker/utils/utils.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class MoneyTrackerApp extends StatefulWidget {
   const MoneyTrackerApp({super.key});
@@ -328,6 +329,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
       (max, bucket) => bucket.totalAmount > max ? bucket.totalAmount : max,
     );
 
+    /*
     return ChartView(
       data: buckets,
       chartBuilder: (ctx, bucket) =>
@@ -335,6 +337,25 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
       height: height,
       title: loc.chartTitleByCategory,
     );
+    */
+    return SfChartView<PaymentBucket, String>(
+      data: buckets,
+      xValueMapper: xValueMapperByCategory,
+      yValueMapper: yValueMapper,
+      height: height,
+      title: loc.chartTitleByCategory,
+      labelIntersectAction: AxisLabelIntersectAction.rotate90,
+      maximumLabels: buckets.length,
+    );
+  }
+
+  String xValueMapperByCategory(
+    BuildContext context,
+    PaymentBucket bucket,
+    int index,
+  ) {
+    final categoryName = bucket.category.toString().split('.').last;
+    return convertCamelCaseToTitle(categoryName);
   }
 
   Widget chartBuilderByCategory(
