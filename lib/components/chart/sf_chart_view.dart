@@ -33,7 +33,6 @@ class _SfChartViewState<T, D> extends State<SfChartView<T, D>> {
     final media = MediaQuery.of(context);
     final screenWidth = media.size.width;
     final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
 
     return Container(
       width: double.infinity,

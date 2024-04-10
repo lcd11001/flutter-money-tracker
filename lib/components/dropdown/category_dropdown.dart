@@ -46,16 +46,18 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final textTheme = Theme.of(context).textTheme;
 
     return InputDecorator(
       decoration: InputDecoration(
         labelText: loc.inputCategory,
+        labelStyle: textTheme.titleMedium!,
         border: const UnderlineInputBorder(),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<Category>(
           isExpanded: true,
-          isDense: true,
+          isDense: !true,
           value: _selectedCategory,
           items: _dropdownMenuEntries,
           onChanged: (value) {

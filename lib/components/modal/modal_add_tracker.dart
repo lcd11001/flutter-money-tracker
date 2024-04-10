@@ -118,6 +118,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               TextField(
                 decoration: InputDecoration(
                   labelText: loc.inputTitle,
+                  labelStyle: textTheme.titleMedium!,
                   errorText: _isSubmitting && !_validateTitle()
                       ? loc.errorTitleRequired
                       : null,
@@ -134,6 +135,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               TextField(
                 decoration: InputDecoration(
                   labelText: loc.inputAmount,
+                  labelStyle: textTheme.titleMedium!,
                   prefixText: '${amountFormatter.currencySymbol} ',
                   prefixStyle: textTheme.titleLarge!.copyWith(
                     color: colorScheme.tertiary,
@@ -157,6 +159,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               TextField(
                 decoration: InputDecoration(
                   labelText: loc.inputDate,
+                  labelStyle: textTheme.titleMedium!,
                   suffixIcon: Icon(
                     Icons.calendar_month,
                     color: colorScheme.tertiary,
@@ -175,9 +178,6 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
               ),
               CategoryDropdown(
                 onCategorySelected: _onCategorySelected,
-              ),
-              const SizedBox(
-                height: 16.0,
               ),
               const SizedBox(
                 height: 32.0,

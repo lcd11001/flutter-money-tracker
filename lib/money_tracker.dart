@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:money_tracker/components/app_version.dart';
-import 'package:money_tracker/components/chart/chart_view.dart';
+// import 'package:money_tracker/components/chart/chart_view.dart';
 import 'package:money_tracker/components/chart/sf_chart_view.dart';
 import 'package:money_tracker/components/modal/modal_add_tracker.dart';
 import 'package:money_tracker/components/payment/payment_list.dart';
@@ -333,12 +333,12 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
 
     buckets.sort((a, b) => a.date.compareTo(b.date));
 
+    /*
     final maxAmount = buckets.fold<double>(
       0,
       (max, bucket) => bucket.totalAmount > max ? bucket.totalAmount : max,
     );
 
-    /*
     return ChartView(
       data: buckets,
       chartBuilder: (ctx, bucket) =>
@@ -397,12 +397,12 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
       ),
     );
 
+    /*
     final maxAmount = buckets.fold<double>(
       0,
       (max, bucket) => bucket.totalAmount > max ? bucket.totalAmount : max,
     );
 
-    /*
     return ChartView(
       data: buckets,
       chartBuilder: (ctx, bucket) =>
