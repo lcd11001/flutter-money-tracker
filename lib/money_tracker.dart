@@ -52,6 +52,8 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
       context: context,
       // make the modal full screen
       isScrollControlled: true,
+      // make the modal in safe area
+      useSafeArea: true,
       backgroundColor: colorScheme.surface,
       builder: (ctx) => ModalAddTracker(
         onAddPayment: _addPayment,

@@ -110,10 +110,9 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
         height: double.infinity,
         child: SingleChildScrollView(
           child: Padding(
-            // 48.0 is the top padding to avoid the status bar
             padding: EdgeInsets.fromLTRB(
               screenWidth < 600 ? 16.0 : 48.0,
-              screenWidth < 600 ? 48.0 : 16.0,
+              16.0,
               screenWidth < 600 ? 16.0 : 48.0,
               keyboardSpace + 16.0,
             ),
