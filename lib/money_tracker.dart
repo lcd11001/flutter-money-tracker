@@ -113,7 +113,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
-    debugPrint('Size: ${media.size.width} x ${media.size.height}');
+    // debugPrint('Size: ${media.size.width} x ${media.size.height}');
     final screenWidth = media.size.width;
 
     final colorScheme = Theme.of(context).colorScheme;

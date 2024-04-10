@@ -99,123 +99,129 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
     final loc = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final media = MediaQuery.of(context);
+    final screenWidth = media.size.width;
+    final keyboardSpace = media.viewInsets.bottom;
+    // debugPrint('keyboardSpace: $keyboardSpace');
 
-    return SizedBox(
-      // force the modal to take the full screen height
-      height: MediaQuery.of(context).size.height,
-      child: Padding(
-        // 48.0 is the top padding to avoid the status bar
-        padding: const EdgeInsets.fromLTRB(
-          16.0,
-          48.0,
-          16.0,
-          16.0,
-        ),
-        // wrap the content with SingleChildScrollView to avoid overflow in small screen
+    return Semantics(
+      label: loc.semanticsModalAddTracker,
+      child: SizedBox(
+        height: double.infinity,
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  labelText: loc.inputTitle,
-                  labelStyle: textTheme.titleMedium!,
-                  errorText: _isSubmitting && !_validateTitle()
-                      ? loc.errorTitleRequired
-                      : null,
-                ),
-                style: textTheme.titleLarge,
-                maxLength: 50,
-                keyboardType: TextInputType.text,
-                onChanged: (_) => _setStateSubmitting(false),
-                controller: _titleController,
-              ),
-              // const SizedBox(
-              //   height: 0.0,
-              // ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: loc.inputAmount,
-                  labelStyle: textTheme.titleMedium!,
-                  prefixText: '${amountFormatter.currencySymbol} ',
-                  prefixStyle: textTheme.titleLarge!.copyWith(
-                    color: colorScheme.tertiary,
+          child: Padding(
+            // 48.0 is the top padding to avoid the status bar
+            padding: EdgeInsets.fromLTRB(
+              screenWidth < 600 ? 16.0 : 48.0,
+              screenWidth < 600 ? 48.0 : 16.0,
+              screenWidth < 600 ? 16.0 : 48.0,
+              keyboardSpace + 16.0,
+            ),
+            // wrap the content with SingleChildScrollView to avoid overflow in small screen
+            child: Column(
+              children: [
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: loc.inputTitle,
+                    labelStyle: textTheme.titleMedium!,
+                    errorText: _isSubmitting && !_validateTitle()
+                        ? loc.errorTitleRequired
+                        : null,
                   ),
-                  errorText: _isSubmitting && !_validateAmount()
-                      ? loc.errorAmountRequired
-                      : null,
+                  style: textTheme.titleLarge,
+                  maxLength: 50,
+                  keyboardType: TextInputType.text,
+                  onChanged: (_) => _setStateSubmitting(false),
+                  controller: _titleController,
                 ),
-                style: textTheme.titleLarge,
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-                  ThousandsFormatter(),
-                ],
-                onChanged: (_) => _setStateSubmitting(false),
-                controller: _amountController,
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: loc.inputDate,
-                  labelStyle: textTheme.titleMedium!,
-                  suffixIcon: Icon(
-                    Icons.calendar_month,
-                    color: colorScheme.tertiary,
+                // const SizedBox(
+                //   height: 0.0,
+                // ),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: loc.inputAmount,
+                    labelStyle: textTheme.titleMedium!,
+                    prefixText: '${amountFormatter.currencySymbol} ',
+                    prefixStyle: textTheme.titleLarge!.copyWith(
+                      color: colorScheme.tertiary,
+                    ),
+                    errorText: _isSubmitting && !_validateAmount()
+                        ? loc.errorAmountRequired
+                        : null,
                   ),
-                  errorText: _isSubmitting && !_validateDate()
-                      ? loc.errorDateInvalid
-                      : null,
-                ),
-                style: textTheme.titleLarge,
-                readOnly: true,
-                onTap: _showDatePicker,
-                controller: _dateController,
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              CategoryDropdown(
-                onCategorySelected: _onCategorySelected,
-              ),
-              const SizedBox(
-                height: 32.0,
-              ),
-              IntrinsicWidth(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: _closeModal,
-                        icon: const Icon(Icons.cancel),
-                        label: Text(loc.buttonCancel),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: colorScheme.tertiary,
-                          foregroundColor: colorScheme.onTertiary,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: _submitPayment,
-                        icon: const Icon(Icons.add),
-                        label: Text(loc.buttonAdd),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: colorScheme.primary,
-                          foregroundColor: colorScheme.onPrimary,
-                        ),
-                      ),
-                    ),
+                  style: textTheme.titleLarge,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+                    ThousandsFormatter(),
                   ],
+                  onChanged: (_) => _setStateSubmitting(false),
+                  controller: _amountController,
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 16.0,
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: loc.inputDate,
+                    labelStyle: textTheme.titleMedium!,
+                    suffixIcon: Icon(
+                      Icons.calendar_month,
+                      color: colorScheme.tertiary,
+                    ),
+                    errorText: _isSubmitting && !_validateDate()
+                        ? loc.errorDateInvalid
+                        : null,
+                  ),
+                  style: textTheme.titleLarge,
+                  readOnly: true,
+                  onTap: _showDatePicker,
+                  controller: _dateController,
+                ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                CategoryDropdown(
+                  onCategorySelected: _onCategorySelected,
+                ),
+                const SizedBox(
+                  height: 32.0,
+                ),
+                IntrinsicWidth(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: _closeModal,
+                          icon: const Icon(Icons.cancel),
+                          label: Text(loc.buttonCancel),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: colorScheme.tertiary,
+                            foregroundColor: colorScheme.onTertiary,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16.0,
+                      ),
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: _submitPayment,
+                          icon: const Icon(Icons.add),
+                          label: Text(loc.buttonAdd),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: colorScheme.primary,
+                            foregroundColor: colorScheme.onPrimary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

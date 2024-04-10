@@ -91,5 +91,6 @@
         }
     },
 
-    "semanticsMoneyTracker": "Money Tracker Screen Page"
+    "semanticsMoneyTracker": "Money Tracker Screen Page",
+    "semanticsModalAddTracker": "Popup Add Expense"
 }
