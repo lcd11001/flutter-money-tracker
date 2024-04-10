@@ -285,25 +285,31 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
         ),
       ),
       actions: [
-        IconButton(
-          icon: const Icon(
-            Icons.add,
-            size: 40,
+        Semantics(
+          label: loc.appbarAddPayment,
+          child: IconButton(
+            icon: const Icon(
+              Icons.add,
+              size: 40,
+            ),
+            color: colorScheme.tertiary,
+            onPressed: _openAddPaymentOverlay,
           ),
-          color: colorScheme.tertiary,
-          onPressed: _openAddPaymentOverlay,
         ),
       ],
       leading: Builder(
-        builder: (context) => IconButton(
-          icon: const Icon(
-            Icons.menu,
-            size: 40,
+        builder: (ctx) => Semantics(
+          label: AppLocalizations.of(ctx)!.appbarOpenDrawer,
+          child: IconButton(
+            icon: const Icon(
+              Icons.menu,
+              size: 40,
+            ),
+            color: colorScheme.primary,
+            onPressed: () {
+              Scaffold.of(ctx).openDrawer();
+            },
           ),
-          color: colorScheme.primary,
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
         ),
       ),
     );

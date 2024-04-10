@@ -30,6 +30,8 @@
     "appTitle": "Money Tracker",
 
     "appbarTitle": "Money Tracker",
+    "appbarAddPayment": "Add expense",
+    "appbarOpenDrawer": "Open settings",
 
     "inputTitle": "Title",
     "inputAmount": "Amount",
