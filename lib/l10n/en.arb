@@ -38,6 +38,7 @@
     "inputDate": "Date",
     "inputDatePlaceholder": "No date selected",
     "inputCategory": "Category",
+    "inputCategoryPlaceholder": "No category selected",
 
     "buttonAdd": "Add",
     "buttonCancel": "Cancel",
@@ -48,6 +49,7 @@
     "errorAmountInvalid": "Amount is invalid",
     "errorDateInvalid": "Date is invalid",
     "errorCategoryRequired": "Category is required",
+    "errorCategoryInvalid": "Category is invalid",
     
     "errorDialogTitle": "Invalid input",
     "errorDialogMessage": "Please make sure all fields are filled in correctly.",

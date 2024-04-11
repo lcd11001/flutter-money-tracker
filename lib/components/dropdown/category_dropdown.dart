@@ -5,16 +5,21 @@ import 'package:money_tracker/models/payment_category.dart';
 import 'package:money_tracker/utils/utils.dart';
 
 class CategoryDropdown extends StatefulWidget {
-  const CategoryDropdown({super.key, required this.onCategorySelected});
+  const CategoryDropdown({
+    super.key,
+    required this.onCategorySelected,
+    this.errorText,
+  });
 
   final ReturnCallback<void, Category> onCategorySelected;
+  final String? errorText;
 
   @override
   State<CategoryDropdown> createState() => _CategoryDropdownState();
 }
 
 class _CategoryDropdownState extends State<CategoryDropdown> {
-  Category _selectedCategory = Category.others;
+  Category? _selectedCategory;
 
   get _dropdownMenuEntries {
     final colorScheme = Theme.of(context).colorScheme;
@@ -52,12 +57,17 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
       decoration: InputDecoration(
         labelText: loc.inputCategory,
         labelStyle: textTheme.titleMedium!,
+        errorText: widget.errorText,
         border: const UnderlineInputBorder(),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<Category>(
           isExpanded: true,
           isDense: !true,
+          hint: Text(
+            loc.inputCategoryPlaceholder,
+            style: textTheme.titleLarge!,
+          ),
           value: _selectedCategory,
           items: _dropdownMenuEntries,
           onChanged: (value) {

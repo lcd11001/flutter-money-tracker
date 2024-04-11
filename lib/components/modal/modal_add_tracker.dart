@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -29,7 +32,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
   final _amountController = TextEditingController();
   final _dateController = TextEditingController();
 
-  late Category _category;
+  late Category? _category;
   late DateTime? _selectedDate;
   late bool _isSubmitting;
 
@@ -37,7 +40,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
   void initState() {
     super.initState();
     _selectedDate = null;
-    _category = Category.others;
+    _category = null;
     _isSubmitting = false;
 
     Future.delayed(Duration.zero, () {
@@ -59,9 +62,10 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
 
   @override
   void dispose() {
-    super.dispose();
     _titleController.dispose();
     _amountController.dispose();
+    _dateController.dispose();
+    super.dispose();
   }
 
   _closeModal() {
@@ -182,6 +186,9 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
                 ),
                 CategoryDropdown(
                   onCategorySelected: _onCategorySelected,
+                  errorText: _isSubmitting && !_validateCategory()
+                      ? loc.errorCategoryInvalid
+                      : null,
                 ),
                 const SizedBox(
                   height: 32.0,
@@ -230,7 +237,10 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
   void _submitPayment() {
     _setStateSubmitting(true);
 
-    if (!_validateTitle() || !_validateAmount() || !_validateDate()) {
+    if (!_validateTitle() ||
+        !_validateAmount() ||
+        !_validateDate() ||
+        !_validateCategory()) {
       _showErrorDialog();
       return;
     }
@@ -239,7 +249,7 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
       title: _titleController.text.trim(),
       amount: double.parse(_amountController.text.replaceAll(',', '')),
       date: _selectedDate!,
-      category: _category,
+      category: _category!,
     );
 
     widget.onAddPayment(newPayment);
@@ -271,24 +281,59 @@ class _ModalAddTrackerState extends State<ModalAddTracker> {
     return _selectedDate != null;
   }
 
-  void _showErrorDialog() {
-    showDialog(
-        context: context,
-        builder: (ctx) {
-          final loc = AppLocalizations.of(ctx)!;
+  bool _validateCategory() {
+    return _category != null;
+  }
 
-          return AlertDialog(
-            title: Text(loc.errorDialogTitle),
-            content: Text(loc.errorDialogMessage),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(ctx);
-                },
-                child: Text(loc.buttonClose),
-              ),
-            ],
-          );
-        });
+  void _showErrorDialog() {
+    if (Platform.isIOS) {
+      _showIOSErrorDialog();
+    } else {
+      _showAndroidErrorDialog();
+    }
+  }
+
+  void _showIOSErrorDialog() {
+    showCupertinoDialog(
+      context: context,
+      builder: (ctx) {
+        final loc = AppLocalizations.of(ctx)!;
+
+        return CupertinoAlertDialog(
+          title: Text(loc.errorDialogTitle),
+          content: Text(loc.errorDialogMessage),
+          actions: [
+            CupertinoDialogAction(
+              child: Text(loc.buttonClose),
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showAndroidErrorDialog() {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        final loc = AppLocalizations.of(ctx)!;
+
+        return AlertDialog(
+          title: Text(loc.errorDialogTitle),
+          content: Text(loc.errorDialogMessage),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: Text(loc.buttonClose),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
