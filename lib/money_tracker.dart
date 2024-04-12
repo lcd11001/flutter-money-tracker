@@ -119,47 +119,42 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     final screenWidth = media.size.width;
 
     final colorScheme = Theme.of(context).colorScheme;
-    final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: buildAppBar(context),
       drawer: buildDrawer(context),
-      body: Semantics(
-        label: loc.semanticsMoneyTracker,
-        container: true,
-        child: Container(
-          color: colorScheme.surface,
-          width: double.infinity,
-          child: screenWidth < 600
-              ? Column(
-                  children: [
-                    ChartType.byCategory == currentChartType
+      body: Container(
+        color: colorScheme.surface,
+        width: double.infinity,
+        child: screenWidth < 600
+            ? Column(
+                children: [
+                  ChartType.byCategory == currentChartType
+                      ? buildChartViewByCategory(context)
+                      : buildChartViewByLastDays(context, days: 7),
+                  Expanded(
+                    child: PaymentList(
+                      payments: PaymentData.data,
+                      onRemovePayment: _removePayment,
+                    ),
+                  ),
+                ],
+              )
+            : Row(
+                children: [
+                  Expanded(
+                    child: ChartType.byCategory == currentChartType
                         ? buildChartViewByCategory(context)
                         : buildChartViewByLastDays(context, days: 7),
-                    Expanded(
-                      child: PaymentList(
-                        payments: PaymentData.data,
-                        onRemovePayment: _removePayment,
-                      ),
+                  ),
+                  Expanded(
+                    child: PaymentList(
+                      payments: PaymentData.data,
+                      onRemovePayment: _removePayment,
                     ),
-                  ],
-                )
-              : Row(
-                  children: [
-                    Expanded(
-                      child: ChartType.byCategory == currentChartType
-                          ? buildChartViewByCategory(context)
-                          : buildChartViewByLastDays(context, days: 7),
-                    ),
-                    Expanded(
-                      child: PaymentList(
-                        payments: PaymentData.data,
-                        onRemovePayment: _removePayment,
-                      ),
-                    ),
-                  ],
-                ),
-        ),
+                  ),
+                ],
+              ),
       ),
       bottomSheet: AppVersion(
         textColor: colorScheme.onSurface,

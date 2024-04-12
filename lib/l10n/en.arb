@@ -91,8 +91,5 @@
                 "description": "The number of days"
             }
         }
-    },
-
-    "semanticsMoneyTracker": "Money Tracker Screen Page",
-    "semanticsModalAddTracker": "Popup Add Expense"
+    }
 }
