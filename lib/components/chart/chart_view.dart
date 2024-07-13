@@ -39,7 +39,7 @@ class _ChartViewState<T> extends State<ChartView<T>> {
         gradient: LinearGradient(
           colors: [
             colorScheme.surface,
-            colorScheme.surfaceVariant,
+            colorScheme.surfaceContainerHighest,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

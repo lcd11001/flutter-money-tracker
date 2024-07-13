@@ -90,7 +90,7 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(seconds: 3),
-        backgroundColor: colorScheme.surfaceVariant,
+        backgroundColor: colorScheme.surfaceContainerHighest,
         content: Text(
           loc.warningPaymentDeleted(removedItem.title),
           style: textTheme.labelLarge!.copyWith(

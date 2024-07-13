@@ -46,7 +46,7 @@ class _SfChartViewState<T, D> extends State<SfChartView<T, D>> {
         gradient: LinearGradient(
           colors: [
             colorScheme.surface,
-            colorScheme.surfaceVariant,
+            colorScheme.surfaceContainerHighest,
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
