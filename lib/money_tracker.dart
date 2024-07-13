@@ -124,41 +124,48 @@ class _MoneyTrackerAppState extends State<MoneyTrackerApp> {
       appBar: buildAppBar(context),
       drawer: buildDrawer(context),
       body: Container(
+        padding: EdgeInsets.only(
+          bottom: screenWidth < 600 ? 30 : 0,
+        ),
         color: colorScheme.surface,
         width: double.infinity,
-        child: screenWidth < 600
-            ? Column(
-                children: [
-                  ChartType.byCategory == currentChartType
-                      ? buildChartViewByCategory(context)
-                      : buildChartViewByLastDays(context, days: 7),
-                  Expanded(
-                    child: PaymentList(
-                      payments: PaymentData.data,
-                      onRemovePayment: _removePayment,
-                    ),
-                  ),
-                ],
-              )
-            : Row(
-                children: [
-                  Expanded(
-                    child: ChartType.byCategory == currentChartType
+        child: SafeArea(
+          child: screenWidth < 600
+              ? Column(
+                  children: [
+                    ChartType.byCategory == currentChartType
                         ? buildChartViewByCategory(context)
                         : buildChartViewByLastDays(context, days: 7),
-                  ),
-                  Expanded(
-                    child: PaymentList(
-                      payments: PaymentData.data,
-                      onRemovePayment: _removePayment,
+                    Expanded(
+                      child: PaymentList(
+                        payments: PaymentData.data,
+                        onRemovePayment: _removePayment,
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                )
+              : Row(
+                  children: [
+                    Expanded(
+                      child: ChartType.byCategory == currentChartType
+                          ? buildChartViewByCategory(context)
+                          : buildChartViewByLastDays(context, days: 7),
+                    ),
+                    Expanded(
+                      child: PaymentList(
+                        payments: PaymentData.data,
+                        onRemovePayment: _removePayment,
+                      ),
+                    ),
+                  ],
+                ),
+        ),
       ),
-      bottomSheet: AppVersion(
-        textColor: colorScheme.onSurface,
-      ),
+      bottomSheet: screenWidth < 600
+          ? AppVersion(
+              textColor: colorScheme.onSurface,
+            )
+          : null,
     );
   }
 
